@@ -165,7 +165,7 @@ public class CommandLineAppStartupRunner implements CommandLineRunner {
 		user.setFullname("Omar Abdelkefi");
 		user.setPassword("123456");
 		user.setId((long) 1);
-		user.setUsername("omarabdelkefi130@gmail.com");
+		user.setUsername("testtest130138@gmail.com");
 		user.setType("admin");
 		user.setSuperadmin(true);
 		administratorService.save(user);

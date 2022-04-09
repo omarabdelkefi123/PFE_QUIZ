@@ -28,44 +28,29 @@ import { LoginComponent } from './components/login/login.component';
 import { ErrorComponent } from './components/error/error.component';
 import { NotfoundComponent } from './components/notfound/notfound.component';
 import { AccessComponent } from './components/access/access.component';
+import { NewPasswordComponent } from './components/new-password/new-password.component';
+import { ForgetPasswordComponent } from './components/forget-password/forget-password.component';
 @NgModule({
     imports: [
         RouterModule.forRoot([
+            { path: '', redirectTo: 'login', pathMatch: 'full' },
+            { path: 'landing', component: LandingComponent },
+            { path: 'login', component: LoginComponent },
+            {path:'newPassword/:token' , component:NewPasswordComponent },
+            {path:'forgetpassword' , component:ForgetPasswordComponent },
+            { path: 'error', component: ErrorComponent },
+            { path: 'notfound', component: NotfoundComponent },
+            { path: 'access', component: AccessComponent },
             {
                 path: '', component: AppMainComponent,
                 children: [
-                    {path: '', component: DashboardComponent},
-                    {path: 'uikit/formlayout', component: FormLayoutComponent},
-                    {path: 'uikit/input', component: InputComponent},
-                    {path: 'uikit/floatlabel', component: FloatLabelComponent},
-                    {path: 'uikit/invalidstate', component: InvalidStateComponent},
-                    {path: 'uikit/button', component: ButtonComponent},
-                    {path: 'uikit/table', component: TableComponent},
-                    {path: 'uikit/list', component: ListComponent},
-                    {path: 'uikit/tree', component: TreeComponent},
-                    {path: 'uikit/panel', component: PanelsComponent},
-                    {path: 'uikit/overlay', component: OverlaysComponent},
-                    {path: 'uikit/media', component: MediaComponent},
-                    {path: 'uikit/menu', loadChildren: () => import('./components/menus/menus.module').then(m => m.MenusModule)},
-                    {path: 'uikit/message', component: MessagesComponent},
-                    {path: 'uikit/misc', component: MiscComponent},
-                    {path: 'uikit/charts', component: ChartsComponent},
-                    {path: 'uikit/file', component: FileComponent},
-                    {path: 'pages/crud', component: CrudComponent},
-                    {path: 'pages/timeline', component: TimelineComponent},
-                    {path: 'pages/empty', component: EmptyComponent},
-                    {path: 'icons', component: IconsComponent},
-                    {path: 'blocks', component: BlocksComponent},
-                    {path: 'documentation', component: DocumentationComponent}
+                    { path: 'alluser', loadChildren: () => import('./user/user.module').then(m => m.UserModule) },
+                    { path: 'dashboard', component: DashboardComponent },
                 ],
             },
-            {path:'pages/landing', component: LandingComponent},
-            {path:'pages/login', component: LoginComponent},
-            {path:'pages/error', component: ErrorComponent},
-            {path:'pages/notfound', component: NotfoundComponent},
-            {path:'pages/access', component: AccessComponent},
-            {path: '**', redirectTo: 'pages/notfound'},
-        ], {scrollPositionRestoration: 'enabled', anchorScrolling:'enabled'})
+
+            { path: '**', redirectTo: 'pages/notfound' },
+        ], { scrollPositionRestoration: 'enabled', anchorScrolling: 'enabled' })
     ],
     exports: [RouterModule]
 })
