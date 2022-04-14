@@ -34,7 +34,7 @@ export class ForgetPasswordComponent implements OnInit {
     });
   }
   resetPass(){
-    this.router.navigate(['user/login/' + this.errorMessage]);
+    this.router.navigate(['/login/' + this.errorMessage]);
     this.auth.resetPassword(this.username).subscribe(
       (response) => {
         this.errorMessage = "un email a été envoyé, veuillez vérifier votre email s'il vous plaît"

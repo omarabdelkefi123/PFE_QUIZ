@@ -81,7 +81,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   showErrorViaMessages(msg) {
     this.msgs = [];
     this.msgs.push({ severity: 'error', summary: 'Error Message', detail: msg });
-}
+  }
   ngOnDestroy(): void {
     if (this.subscription) {
       this.subscription.unsubscribe();

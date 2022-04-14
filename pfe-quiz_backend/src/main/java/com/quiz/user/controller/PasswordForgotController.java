@@ -80,7 +80,7 @@ public class PasswordForgotController {
 		// ":8081/#";
 
 		// server
-		String url1 = request.getScheme() + "://" + request.getServerName() + ":4200/#/user";
+		String url1 = request.getScheme() + "://" + request.getServerName() + ":4200/#";
 
 		PasswordResetToken token = new PasswordResetToken();
 		Map<String, Object> claims = new HashMap<>();
@@ -107,11 +107,7 @@ public class PasswordForgotController {
 
 		MailRequest mailRequest = new MailRequest();
 
-		// out
-		// mailRequest.setFrom("mourad.mallek@enis.tn");
-
-		// Telnet
-		mailRequest.setFrom("omarabdelkefi130@gmail.com");
+		mailRequest.setFrom("testtest130138@gmail.com");
 
 		mailRequest.setSubject("Demande de réinitialisation du mot de passe");
 		mailRequest.setTo(username);
@@ -120,12 +116,12 @@ public class PasswordForgotController {
 
 		Map<String, Object> model = new HashMap<>();
 		model.put("Name", user.getUsername());
-		model.put("location", "TUNISIA , sfax ");
+		model.put("location", "TUNISIA , tunis ");
 		// url3=http://localhost:4200/#/newPassword/:token
 		model.put("resetUrl", url3);
 		model.put("logInUrl", url4);
 
-		model.put("signature", "Telnet");
+		model.put("signature", "Quiz");
 		model.put("expirationPeride", myProperties.getEmailExpirationPeriode());
 
 		emailService.sendEmail(mailRequest, model);

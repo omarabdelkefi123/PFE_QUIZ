@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class EcmBackendOApplication {
+public class QuizBackendApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(EcmBackendOApplication.class, args);
+		SpringApplication.run(QuizBackendApplication.class, args);
 	}
 
 }

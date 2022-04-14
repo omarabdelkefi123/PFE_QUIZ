@@ -72,7 +72,6 @@ public class EmailService {
 			// add attachment
 			// helper.addAttachment("logo.png", new ClassPathResource("logo.png"));
 
-			// Template t = config.getTemplate("email-template-telnet.html");
 			Template t = config.getTemplate("email-template.ftl");
 			String html = FreeMarkerTemplateUtils.processTemplateIntoString(t, model);
 
@@ -82,7 +81,7 @@ public class EmailService {
 			helper.setFrom(request.getFrom());
 			System.out.print(request.getFrom());
 			System.out.print(request.getTo());
-			helper.addInline("myLogo", new ClassPathResource("./templates/images/Telnet-Logo.jpg"));
+			helper.addInline("myLogo", new ClassPathResource("./templates/images/quiz.jpg"));
 			//logo attachement
 			//helper.addInline("myLogo2", new ClassPathResource("./templates/images/favicons.jpg"));
 
@@ -109,7 +108,6 @@ public class EmailService {
 			// add attachment
 			// helper.addAttachment("logo.png", new ClassPathResource("logo.png"));
 
-			// Template t = config.getTemplate("email-template-telnet.html");
 			Template t = config.getTemplate("client.ftl");
 			String html = FreeMarkerTemplateUtils.processTemplateIntoString(t, model);
 
@@ -119,7 +117,7 @@ public class EmailService {
 			helper.setFrom(request.getFrom());
 			System.out.print(request.getFrom());
 			System.out.print(request.getTo());
-			helper.addInline("myLogo", new ClassPathResource("./templates/images/Telnet-Logo.jpg"));
+			helper.addInline("myLogo", new ClassPathResource("./templates/images/quiz.jpg"));
 			helper.addInline("myLogo2", new ClassPathResource("./templates/images/favicons.jpg"));
 
 			sender.send(message);

@@ -41,7 +41,7 @@
             
             <p>
                 Someone, hopefully you, has requested to reset the password for your account on <br/>
-								            <p align="center" color="red">    <a href="${logInUrl}" >Telnet Face Application</a><br/> </p>
+								            <p align="center" color="red">    <a href="${logInUrl}" >Quiz Application</a><br/> </p>
 
 				If you did not perform this request, you can safely ignore this email.<br/> <br/>
 
