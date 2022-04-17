@@ -32,12 +32,16 @@ public class Experience implements Serializable {
 	@ManyToOne
 	private Administrator admin;
 
-	// bi-directional many-to-one association to User
-	@JsonBackReference(value = "expemployee")
-	@ManyToOne
-	private Employee employee;
-
 	public Experience() {
+	}
+
+	public Experience(long id, String company, String duration, String position, Administrator admin) {
+		super();
+		this.id = id;
+		this.company = company;
+		this.duration = duration;
+		this.position = position;
+		this.admin = admin;
 	}
 
 	public long getId() {
@@ -64,17 +68,6 @@ public class Experience implements Serializable {
 		this.position = position;
 	}
 
-	public Experience(long id, String company, String duration, String position, Administrator admin,
-			Employee employee) {
-		super();
-		this.id = id;
-		this.company = company;
-		this.duration = duration;
-		this.position = position;
-		this.admin = admin;
-		this.employee = employee;
-	}
-
 	public String getDuration() {
 		return duration;
 	}
@@ -89,14 +82,6 @@ public class Experience implements Serializable {
 
 	public void setAdmin(Administrator admin) {
 		this.admin = admin;
-	}
-
-	public Employee getEmployee() {
-		return employee;
-	}
-
-	public void setEmployee(Employee employee) {
-		this.employee = employee;
 	}
 
 	public static long getSerialversionuid() {

@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -15,10 +14,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.quiz.user.entities.Administrator;
-import com.quiz.user.entities.Client;
-import com.quiz.user.entities.Permission;
 import com.quiz.user.entities.User;
 import com.quiz.user.services.UserService;
 
@@ -64,16 +59,6 @@ public class UserController {
 
 		userservice.update(user);
 
-	}
-
-	@GetMapping("/user/perissionByuserame")
-	public List<Permission> PermissionUsername(Authentication auth) {
-
-		auth = SecurityContextHolder.getContext().getAuthentication();
-
-		String user = auth.getName();
-
-		return userservice.findPermissionByUsername(user);
 	}
 
 }

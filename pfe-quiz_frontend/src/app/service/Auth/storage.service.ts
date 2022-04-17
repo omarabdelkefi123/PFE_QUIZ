@@ -15,7 +15,7 @@ export class StorageService {
   getuserfromcookieorsession(): User {
     return JSON.parse(sessionStorage.getItem('user')) || this.cookieService.get('user');
   }
-  getpermissionsfromcookieorsession() {
-    return JSON.parse(sessionStorage.getItem('permissions')) || this.cookieService.get('permissions');
+  getrolefromcookieorsession() {
+    return JSON.parse(sessionStorage.getItem('role')) || this.cookieService.get('role');
   }
 }

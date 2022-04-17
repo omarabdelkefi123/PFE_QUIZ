@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { Product } from 'src/app/api/product';
+import { Administrator } from 'src/app/models/user/administrator';
 import { ProductService } from 'src/app/service/productservice';
+import { AdminService } from 'src/app/service/user/admin.service';
 
 @Component({
   selector: 'app-list-user',
@@ -31,14 +34,20 @@ export class ListUserComponent implements OnInit {
 
   rowsPerPageOptions = [5, 10, 20];
 
-  constructor(private productService: ProductService, private messageService: MessageService,
-              private confirmationService: ConfirmationService) {}
+  isTableHasData = true;
+  filtersocieties: any;
+  isalladmin=false;
+  administrators: Administrator[];
+  filteradministrators: Administrator[] = [];
+
+  constructor(private router: Router,private productService: ProductService, private messageService: MessageService,
+              private confirmationService: ConfirmationService,private administratorservice: AdminService,) {}
 
   ngOnInit() {
       this.productService.getProducts().then(data => this.products = data);
 
       this.cols = [
-          {field: 'name', header: 'Name'},
+          {field: 'username', header: 'username'},
           {field: 'price', header: 'Price'},
           {field: 'category', header: 'Category'},
           {field: 'rating', header: 'Reviews'},
@@ -50,12 +59,19 @@ export class ListUserComponent implements OnInit {
           {label: 'LOWSTOCK', value: 'lowstock'},
           {label: 'OUTOFSTOCK', value: 'outofstock'}
       ];
+
+      this.reloadData();
   }
 
-  openNew() {
-      this.product = {};
-      this.submitted = false;
-      this.productDialog = true;
+  reloadData() {
+    this.administratorservice.getadministratorList()
+      .subscribe(data => {
+        console.log(data)
+        this.administrators = data;
+      });
+  }
+  addUser() {
+    this.router.navigate(["user/add"]);
   }
 
   deleteSelectedProducts() {

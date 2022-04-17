@@ -24,11 +24,9 @@ export class AuthGuardService implements CanActivate {
             }
             if (route.data.privilege !== undefined) {
                 this.list = route.data.privilege[0];
-                currentUser.role.permissions.forEach(permission => {
-                    if (this.list.includes(permission.permission_name)) {
-                        this.result = true;
-                    }
-                })
+                if (this.list.includes(currentUser.role.name)) {
+                    this.result = true;
+                }
             }
             if (this.result) {
                 return true;

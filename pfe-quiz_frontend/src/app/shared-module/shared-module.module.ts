@@ -82,6 +82,7 @@ import { TreeModule } from 'primeng/tree';
 import { TreeSelectModule } from 'primeng/treeselect';
 import { TreeTableModule } from 'primeng/treetable';
 import { VirtualScrollerModule } from 'primeng/virtualscroller';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [],
@@ -250,6 +251,7 @@ import { VirtualScrollerModule } from 'primeng/virtualscroller';
     TreeTableModule,
     VirtualScrollerModule,
     StyleClassModule,
+    ReactiveFormsModule 
   ]
 })
 export class SharedModuleModule { }

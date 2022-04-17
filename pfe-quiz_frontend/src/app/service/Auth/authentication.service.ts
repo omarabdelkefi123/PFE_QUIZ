@@ -7,8 +7,8 @@ import { catchError, map, tap } from 'rxjs/operators';
 import { CookieService } from 'ngx-cookie-service';
 import { StorageService } from './storage.service';
 import { User } from 'src/app/models/user/User';
-import { Permission } from 'src/app/models/user/permission';
 import { throwError } from 'rxjs';
+import { Role } from 'src/app/models/user/role';
 @Injectable({
   providedIn: 'root'
 })
@@ -16,7 +16,7 @@ export class AuthenticationService {
   private actionUrl: string;
   public token: string;
   private user: User;
-  private permission: Permission[] = [];
+  private role: Role;
   perssssss: any;
   public id: number;
   private headers = new Headers();
@@ -45,8 +45,8 @@ export class AuthenticationService {
               //cast object to user class
               this.user = response.body as User;
               this.currentUserSubject.next(this.user);
-              this.permission = this.user.role.permissions;
-              this.saveInCookieOrInSession(this.token, rememberMe, this.user, this.permission);
+              this.role = this.user.role;
+              this.saveInCookieOrInSession(this.token, rememberMe, this.user, this.role);
               this.getExpirationPeriodCookies().subscribe((data) => {
                 this.expirationPeriodCookies = +data;
               });
@@ -77,17 +77,17 @@ export class AuthenticationService {
     const config = { headers: new HttpHeaders().set('Authorization', "Bearer " + token) };
     return this.http.put('http://localhost:8080/new-password', data, config)
   }
-  saveInCookieOrInSession(jwtToken: string, rememberMe: boolean, user: User, permissions: Permission[]) {
+  saveInCookieOrInSession(jwtToken: string, rememberMe: boolean, user: User, role: Role) {
     var splitted = jwtToken.split(" ");
     if (rememberMe) {
       //this.expirationPeriodCookies in day ## 0.000694444 day (frombackend)  = expiration Period 1 min
       this.cookieService.set('token', jwtToken, this.expirationPeriodCookies);
       this.cookieService.set('user', JSON.stringify(user));
-      this.cookieService.set('permissions', JSON.stringify(permissions));
+      this.cookieService.set('role', JSON.stringify(role));
     } else {
       sessionStorage.setItem('token', jwtToken);
       sessionStorage.setItem('user', JSON.stringify(user));
-      sessionStorage.setItem('permissions', JSON.stringify(permissions));
+      sessionStorage.setItem('role', JSON.stringify(role));
     }
   }
   getExpirationPeriodCookies() {

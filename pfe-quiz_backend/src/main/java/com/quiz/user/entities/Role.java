@@ -34,12 +34,6 @@ public class Role implements Serializable {
 	private String name;
 
 	private String description;
-//bi-directional many-to-many association to Permission
-	// call-permission
-	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(name = "role_permission", joinColumns = { @JoinColumn(name = "role_id") }, inverseJoinColumns = {
-			@JoinColumn(name = "permission_id") })
-	private List<Permission> permissions;
 
 	// bi-directional many-to-one association to User
 	@JsonBackReference
@@ -50,14 +44,17 @@ public class Role implements Serializable {
 		super();
 	}
 
-	public Role(Long id, String name, String description, List<Permission> permissions, List<User> persons) {
+	
+	
+	public Role(Long id, String name, String description, List<User> persons) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.description = description;
-		this.permissions = permissions;
 		this.persons = persons;
 	}
+
+
 
 	public Long getId() {
 		return id;
@@ -81,14 +78,6 @@ public class Role implements Serializable {
 
 	public void setDescription(String description) {
 		this.description = description;
-	}
-
-	public List<Permission> getPermissions() {
-		return permissions;
-	}
-
-	public void setPermissions(List<Permission> permissions) {
-		this.permissions = permissions;
 	}
 
 	public static long getSerialversionuid() {

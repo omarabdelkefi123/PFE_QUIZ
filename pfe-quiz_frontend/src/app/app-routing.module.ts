@@ -45,7 +45,7 @@ import { ForgetPasswordComponent } from './components/forget-password/forget-pas
             {
                 path: '', component: AppMainComponent,
                 children: [
-                    { path: 'alluser', loadChildren: () => import('./user/user.module').then(m => m.UserModule) },
+                    { path: 'user', loadChildren: () => import('./user/user.module').then(m => m.UserModule) },
                     { path: 'dashboard', component: DashboardComponent },
                 ],
             },

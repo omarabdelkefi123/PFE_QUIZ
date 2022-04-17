@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -144,6 +144,7 @@ import { AuthenticationService } from './service/Auth/authentication.service';
 import { AuthGuardService } from './service/Auth/auth-guard.service';
 import { ForgetPasswordComponent } from './components/forget-password/forget-password.component';
 import { NewPasswordComponent } from './components/new-password/new-password.component';
+import { InterceptorService } from './service/Auth/interceptor.service';
 
 @NgModule({
     imports: [
@@ -282,6 +283,9 @@ import { NewPasswordComponent } from './components/new-password/new-password.com
     ],
     providers: [
         { provide: LocationStrategy, useClass: HashLocationStrategy },
+        {
+            provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true
+        },
         AuthenticationService, AuthGuardService,
         CountryService, CustomerService, EventService, IconService, NodeService,
         PhotoService, ProductService, MenuService, ConfigService

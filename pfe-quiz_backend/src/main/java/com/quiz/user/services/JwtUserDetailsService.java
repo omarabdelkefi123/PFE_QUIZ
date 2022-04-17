@@ -14,10 +14,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.quiz.user.dao.Repopermission;
 import com.quiz.user.dao.UserDao;
 import com.quiz.user.dto.UserDTO;
-import com.quiz.user.entities.Permission;
 import com.quiz.user.entities.User;
 
 @Service
@@ -25,8 +23,6 @@ public class JwtUserDetailsService implements UserDetailsService {
 
 	@Autowired
 	private UserDao userDao;
-	@Autowired
-	Repopermission repopermi;
 	@Autowired
 	private PasswordEncoder bcryptEncoder;
 
@@ -41,19 +37,19 @@ public class JwtUserDetailsService implements UserDetailsService {
 				getUserAuthority());
 	}
 
-	public List<Permission> getPermissions() {
+	/*public List<Permission> getPermissions() {
 		List<Permission> permissions = new ArrayList<>();
-		repopermi.findAll().forEach(permissions::add);
+		// repopermi.findAll().forEach(permissions::add);
 		return permissions;
 
-	}
+	}*/
 
 	private List<GrantedAuthority> getUserAuthority() {
 		Set<GrantedAuthority> roles = new HashSet<>();
 
-		getPermissions().forEach((permission) -> {
+		/*getPermissions().forEach((permission) -> {
 			roles.add(new SimpleGrantedAuthority(permission.getPermission_name()));
-		});
+		});*/
 
 		List<GrantedAuthority> grantedAuthorities = new ArrayList<>(roles);
 		return grantedAuthorities;

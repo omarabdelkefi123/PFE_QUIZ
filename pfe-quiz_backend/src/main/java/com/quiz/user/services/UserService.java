@@ -8,13 +8,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.quiz.user.dao.AdministratorDao;
-import com.quiz.user.dao.ClientDao;
-import com.quiz.user.dao.EmployeeDao;
 import com.quiz.user.dao.UserDao;
 import com.quiz.user.entities.Administrator;
-import com.quiz.user.entities.Client;
-import com.quiz.user.entities.Employee;
-import com.quiz.user.entities.Permission;
 import com.quiz.user.entities.User;
 
 @Service
@@ -23,10 +18,7 @@ public class UserService {
 	private PasswordEncoder bcryptEncoder;
 	@Autowired
 	UserDao userdao;
-	@Autowired
-	EmployeeDao employeeDao;
-	@Autowired
-	ClientDao clientDao;
+
 	@Autowired
 	AdministratorDao administratordao;
 
@@ -37,32 +29,6 @@ public class UserService {
 	}
 
 	public void update(User user) {
-		System.out.print("update user servise");
-		if (user.getType().equals("admin")) {
-			System.out.print("type admin");
-			Optional<Administrator> adm = administratordao.findById(user.getId());
-			Administrator admin = adm.get();
-			System.out.print("password = " + user.getImages().get(0).getImageid());
-			// change images
-			admin.setImages(user.getImages());
-			administratordao.save(admin);
-		}
-		if (user.getType().equals("client")) {
-			System.out.print("type client");
-			Optional<Client> cl = clientDao.findById(user.getId());
-			Client client = cl.get();
-			// change images
-			client.setImages(user.getImages());
-			clientDao.save(client);
-		}
-		if (user.getType().equals("employee")) {
-			System.out.print("typeemployee");
-			Optional<Employee> emp = employeeDao.findById(user.getId());
-			Employee employee = emp.get();
-			// change images
-			employee.setImages(user.getImages());
-			employeeDao.save(employee);
-		}
 
 	}
 
@@ -77,11 +43,6 @@ public class UserService {
 	public boolean delete(Long id) {
 		userdao.deleteById(id);
 		return true;
-	}
-
-	public List<Permission> findPermissionByUsername(String username) {
-		User per = userdao.findByUsername(username);
-		return per.getRole().getPermissions();
 	}
 
 }

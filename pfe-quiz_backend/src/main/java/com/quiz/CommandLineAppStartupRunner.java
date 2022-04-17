@@ -1,30 +1,17 @@
 package com.quiz;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-import com.quiz.user.services.AdministratorService;
-import com.quiz.user.services.ModuleService;
-import com.quiz.user.services.PermissionService;
-import com.quiz.user.services.RoleService;
-import com.quiz.user.services.UserService;
-
 import com.quiz.user.entities.Administrator;
-import com.quiz.user.entities.Module;
-import com.quiz.user.entities.Permission;
 import com.quiz.user.entities.Role;
-import com.quiz.user.entities.User;
+import com.quiz.user.services.AdministratorService;
+import com.quiz.user.services.RoleService;
 
 @Component
 public class CommandLineAppStartupRunner implements CommandLineRunner {
-	@Autowired
-	private ModuleService moduleservice;
-	@Autowired
-	private PermissionService permissionservice;
+
 	@Autowired
 	private RoleService roleservice;
 	@Autowired
@@ -32,133 +19,26 @@ public class CommandLineAppStartupRunner implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		List<Permission> permissions = new ArrayList<Permission>();
-		Module module1 = new Module();
-		module1.setModuleName("Project");
-		moduleservice.save(module1);
-		Module module2 = new Module();
-		module2.setModuleName("Employee");
-		moduleservice.save(module2);
-		Module module3 = new Module();
-		module3.setModuleName("Client");
-		moduleservice.save(module3);
-		Module module4 = new Module();
-		module4.setModuleName("Administrator");
-		moduleservice.save(module4);
-		/********* permissions of projects *************************************/
-		Permission permission = new Permission();
-		permission.setId((long) 1);
-		permission.setModule(module1);
-		permission.setPermission_name("add project");
-		permissionservice.save(permission);
-		permissions.add(permission);
-		permission = new Permission();
-		permission.setId((long) 2);
-		permission.setModule(module1);
-		permission.setPermission_name("delete project");
-		permissionservice.save(permission);
-		permissions.add(permission);
-		permission = new Permission();
-		permission.setId((long) 3);
-		permission.setModule(module1);
-		permission.setPermission_name("consult project");
-		permissionservice.save(permission);
-		permissions.add(permission);
-		permission = new Permission();
-		permission.setId((long) 4);
-		permission.setModule(module1);
-		permission.setPermission_name("edit project");
-		permissionservice.save(permission);
-		permissions.add(permission);
-		/*************************************
-		 * permissions of employee
-		 **********************************/
-		permission = new Permission();
-		permission.setId((long) 5);
-		permission.setModule(module2);
-		permission.setPermission_name("add employee");
-		permissionservice.save(permission);
-		/// add in list
-		permissions.add(permission);
-		permission = new Permission();
-		permission.setId((long) 6);
-		permission.setModule(module2);
-		permission.setPermission_name("delete employee");
-		permissionservice.save(permission);
-		permissions.add(permission);
-		permission = new Permission();
-		permission.setId((long) 7);
-		permission.setModule(module2);
-		permission.setPermission_name("consult employee");
-		permissionservice.save(permission);
-		permissions.add(permission);
-		permission = new Permission();
-		permission.setId((long) 8);
-		permission.setModule(module2);
-		permission.setPermission_name("edit employee");
-		permissionservice.save(permission);
-		permissions.add(permission);
-		/**********************************
-		 * permissions of client
-		 ****************************/
-		permission = new Permission();
-		permission.setId((long) 9);
-		permission.setModule(module3);
-		permission.setPermission_name("add client");
-		permissionservice.save(permission);
-		permissions.add(permission);
-		permission = new Permission();
-		permission.setId((long) 10);
-		permission.setModule(module3);
-		permission.setPermission_name("delete client");
-		permissionservice.save(permission);
-		permissions.add(permission);
-		permission = new Permission();
-		permission.setId((long) 11);
-		permission.setModule(module3);
-		permission.setPermission_name("consult client");
-		permissionservice.save(permission);
-		permissions.add(permission);
-		permission = new Permission();
-		permission.setId((long) 12);
-		permission.setModule(module3);
-		permission.setPermission_name("edit client");
-		permissionservice.save(permission);
-		permissions.add(permission);
-		/**********************************
-		 * permissions of administrator
-		 ****************************/
-		permission = new Permission();
-		permission.setId((long) 13);
-		permission.setModule(module4);
-		permission.setPermission_name("add administrator");
-		permissionservice.save(permission);
-		permissions.add(permission);
-		permission = new Permission();
-		permission.setId((long) 14);
-		permission.setModule(module4);
-		permission.setPermission_name("delete administrator");
-		permissionservice.save(permission);
-		permissions.add(permission);
-		permission = new Permission();
-		permission.setId((long) 15);
-		permission.setModule(module4);
-		permission.setPermission_name("consult administrator");
-		permissionservice.save(permission);
-		permissions.add(permission);
-		permission = new Permission();
-		permission.setId((long) 16);
-		permission.setModule(module4);
-		permission.setPermission_name("edit administrator");
-		permissionservice.save(permission);
-		permissions.add(permission);
 		/***************************** default role ***************************/
 		Role role = new Role();
 		role.setId((long) 1);
-		role.setName("admin");
-		role.setDescription("have all permission");
-
-		role.setPermissions(permissions);
+		role.setName("Administrator");
+		role.setDescription("Administrator Role");
+		roleservice.save(role);
+		role = new Role();
+		role.setId((long) 2);
+		role.setName("Enseignant");
+		role.setDescription("Enseignant Role");
+		roleservice.save(role);
+		role = new Role();
+		role.setId((long) 3);
+		role.setName("Etudiant");
+		role.setDescription("Etudiant Role");
+		roleservice.save(role);
+		role = new Role();
+		role.setId((long) 4);
+		role.setName("Recruteur");
+		role.setDescription("Recruteur Role");
 		roleservice.save(role);
 		Administrator user = new Administrator();
 		user.setRole(role);
@@ -167,7 +47,6 @@ public class CommandLineAppStartupRunner implements CommandLineRunner {
 		user.setId((long) 1);
 		user.setUsername("testtest130138@gmail.com");
 		user.setType("admin");
-		user.setSuperadmin(true);
 		administratorService.save(user);
 
 		/*

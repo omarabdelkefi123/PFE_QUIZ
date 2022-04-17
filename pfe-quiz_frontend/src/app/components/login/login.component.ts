@@ -59,7 +59,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.auth.login(this.username, this.password, this.remember).subscribe(
       data => {
         if (data) {
-          this.router.navigate(['alluser']);
+          this.router.navigate(['user/alluser']);
         }
         else {
           this.errorMessage = 'Username or password is incorrect';

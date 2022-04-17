@@ -1,9 +1,15 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AddUserComponent } from './add-user/add-user.component';
+import { EditUserComponent } from './edit-user/edit-user.component';
 import { ListUserComponent } from './list-user/list-user.component';
+import { ProfileUserComponent } from './profile-user/profile-user.component';
 
 const routes: Routes = [
-  { path: '', component: ListUserComponent },
+  { path: 'alluser', component: ListUserComponent },
+  { path: 'add', component: AddUserComponent },
+  { path: 'edit/:id', component: EditUserComponent },
+  { path: 'profile/:id', component: ProfileUserComponent },
 ];
 
 @NgModule({
