@@ -7,12 +7,14 @@ import { CountryService } from 'src/app/service/countryservice';
 import { AdminService } from 'src/app/service/user/admin.service';
 import { RoleService } from 'src/app/service/user/role.service';
 import { FormControl, Validators } from '@angular/forms';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-edit-user',
   templateUrl: './edit-user.component.html',
   styleUrls: ['./edit-user.component.scss']
 })
+
 export class EditUserComponent implements OnInit {
 
   roles: Role[];
@@ -104,10 +106,13 @@ export class EditUserComponent implements OnInit {
   ]);
   id: number;
   i: number;
-  constructor(private route: ActivatedRoute, private router: Router, private administratorservice: AdminService, private roleservice: RoleService, private countryService: CountryService) {
+ 
+  constructor(public datepipe: DatePipe,private route: ActivatedRoute, private router: Router, private administratorservice: AdminService, private roleservice: RoleService, private countryService: CountryService) {
 
 
   }
+  date:Date ;
+  data_inserimento;
   reloadData() {
     this.roleservice.getRolesList()
       .subscribe(data => { this.roles = data; });
@@ -122,12 +127,16 @@ export class EditUserComponent implements OnInit {
       binaryData.push(this.user.imageprofile);
       this.user.imageprofile.bytes = 'data:image/jpg;base64,' + this.user.imageprofile.bytes;
       this.images.push(this.user.imageprofile);
+      this.uploadedFiles =this.user.documents;
+      this.selectedGender=this.sexe.filter(ele=>ele.value = this.user.gender)[0];
+      this.selectedCity=this.villeGroups.filter(ele=>ele.value = this.user.city)[0];
+      this.data_inserimento = new Date(this.user.dateofbirth);
     });
   }
   ngOnInit() {
     this.reloadData();
   }
-  addUser() {
+  editUser() {
     this.user.gender = this.selectedGender.value;
     this.user.city = this.selectedCity.value;
     const formData: FormData = new FormData();
@@ -158,5 +167,7 @@ export class EditUserComponent implements OnInit {
     this.files.push(this.selectedFiles.item(0));
   }
 
+  onUpload($event){
 
+  }
 }

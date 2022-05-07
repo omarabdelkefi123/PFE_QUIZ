@@ -50,8 +50,7 @@
         </div>
         <div class="field col-12 md:col-4">
             <span class="p-float-label">
-                <p-calendar inputId="calendar" [formControl]="dateControl" name="dateofbirth"
-                    [(ngModel)]="user.dateofbirth">></p-calendar>
+                <p-calendar [(ngModel)]="data_inserimento"></p-calendar>
                 <label for="calendar">Date of birth</label>
             </span>
             <small *ngIf="dateControl.errors && dateControl.errors.required && dateControl.touched" class="p-error">Date
@@ -82,8 +81,8 @@
 
     <h5>Documents</h5>
 
-    <p-fileUpload name="demo[]" [files]="user.documents" [showUploadButton]="false" url="./upload.php" multiple="multiple" maxFileSize="1000000"
-        (onSelect)="selectFile($event.files)">
+    <p-fileUpload name="demo[]" url="./upload.php" (onUpload)="onUpload($event)" multiple="multiple" accept="image/*"
+        maxFileSize="1000000">
         <ng-template pTemplate="content">
             <ul *ngIf="uploadedFiles.length">
                 <li *ngFor="let file of uploadedFiles">{{file.name}} - {{file.size}} bytes</li>
@@ -92,7 +91,7 @@
     </p-fileUpload>
 
 
-    <button pButton pRipple type="button" (click)="addUser()" label="Secondary"
+    <button pButton pRipple type="button" (click)="editUser()" label="Secondary"
         class="p-button-secondary mr-2 mb-2"></button>
     <button pButton pRipple type="button" label="Primary" class="mr-2 mb-2 "></button>
 
