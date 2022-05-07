@@ -13,7 +13,7 @@ export class User{
     city:string;
     phone:number;
     type:string;
-    imageprofile:Document;
+    imageprofile:any;
     images:Document[];
     lastlogin:Date;
     isactive:boolean;

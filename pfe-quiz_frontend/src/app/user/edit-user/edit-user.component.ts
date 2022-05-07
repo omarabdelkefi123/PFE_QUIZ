@@ -8,6 +8,8 @@ import { AdminService } from 'src/app/service/user/admin.service';
 import { RoleService } from 'src/app/service/user/role.service';
 import { FormControl, Validators } from '@angular/forms';
 import { DatePipe } from '@angular/common';
+import { Administrator } from 'src/app/models/user/administrator';
+import { Document as Alias } from 'src/app/models/user/document';
 
 @Component({
   selector: 'app-edit-user',
@@ -19,7 +21,7 @@ export class EditUserComponent implements OnInit {
 
   roles: Role[];
   uploadedFiles: any[] = [];
-  user: User = new User();
+  user = new Administrator();
   imageError: string;
   cardImageBase64: string;
   isImageSaved: boolean;
@@ -37,7 +39,7 @@ export class EditUserComponent implements OnInit {
   selectedGender;
   selectedCity;
   RoleSelectedValue: any;
-  images: any;
+  documents: Alias[];
   //Function to testdate
   testDate(dateofb) {
     var timeDiff = Math.abs(Date.now() - dateofb);
@@ -106,12 +108,12 @@ export class EditUserComponent implements OnInit {
   ]);
   id: number;
   i: number;
- 
-  constructor(public datepipe: DatePipe,private route: ActivatedRoute, private router: Router, private administratorservice: AdminService, private roleservice: RoleService, private countryService: CountryService) {
+  urlServer: string = 'http://localhost:8080/';
+  constructor(public datepipe: DatePipe, private route: ActivatedRoute, private router: Router, private administratorservice: AdminService, private roleservice: RoleService, private countryService: CountryService) {
 
 
   }
-  date:Date ;
+  date: Date;
   data_inserimento;
   reloadData() {
     this.roleservice.getRolesList()
@@ -122,15 +124,11 @@ export class EditUserComponent implements OnInit {
     this.administratorservice.getadministrator(this.id).subscribe(data => {
       this.user = data;
       //this.RoleSelectedValue = data.role.id;
-      this.images = [];
-      var binaryData = [];
-      binaryData.push(this.user.imageprofile);
-      this.user.imageprofile.bytes = 'data:image/jpg;base64,' + this.user.imageprofile.bytes;
-      this.images.push(this.user.imageprofile);
-      this.uploadedFiles =this.user.documents;
-      this.selectedGender=this.sexe.filter(ele=>ele.value = this.user.gender)[0];
-      this.selectedCity=this.villeGroups.filter(ele=>ele.value = this.user.city)[0];
-      this.data_inserimento = new Date(this.user.dateofbirth);
+      this.documents = this.user.documents;
+      this.selectedGender = this.sexe.find(ele => ele.value === this.user.gender);
+
+      this.selectedCity = this.villeGroups.filter(ele => ele.value === this.user.city)[0];
+      this.user.dateofbirth = new Date(this.user.dateofbirth);
     });
   }
   ngOnInit() {
@@ -141,11 +139,10 @@ export class EditUserComponent implements OnInit {
     this.user.city = this.selectedCity.value;
     const formData: FormData = new FormData();
     this.files.forEach(element => {
-      formData.append('files', element);
+      formData.append('documents', element);
     });
     formData.append('admin', JSON.stringify(this.user));
-    ;
-    this.administratorservice.addadministrator(formData)
+    this.administratorservice.updateadministrator(formData)
       .subscribe(data => {
         ;
         console.log(data);
@@ -157,17 +154,60 @@ export class EditUserComponent implements OnInit {
         }
       );
   }
-
-  selectImage(event) {
-    this.selectedImages = event;
-    this.images.push(this.selectedImages.item(0));
-  }
   selectFile(event) {
-    this.selectedFiles = event;
+    this.selectedFiles = event.target.files;
     this.files.push(this.selectedFiles.item(0));
+    console.log(this.selectedFiles.item(0))
+    var document = new Alias();
+    document.name = this.selectedFiles.item(0).name;
+    document.bytes = this.selectedFiles.item(0).arrayBuffer;
+    document.size = this.selectedFiles.item(0).size;
+    this.documents.push(document)
   }
 
-  onUpload($event){
-
+  deleteDocument(i): void {
+    console.log("delete")
+    this.files.splice(i, 1);
+    this.documents.splice(i, 1);
+  }
+  fileChangeEvent(fileInput: any) {
+    this.imageError = null;
+    if (fileInput.target.files && fileInput.target.files[0]) {
+      // Size Filter Bytes
+      const max_size = 20971520;
+      const allowed_types = ['image/png', 'image/jpeg'];
+      const max_height = 15200;
+      const max_width = 25600;
+      if (fileInput.target.files[0].size > max_size) {
+        this.imageError =
+          'Maximum size allowed is ' + max_size / 1000 + 'Mb';
+        return false;
+      }
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        const image = new Image();
+        image.src = e.target.result;
+        image.onload = rs => {
+          const img_height = rs.currentTarget['height'];
+          const img_width = rs.currentTarget['width'];
+          if (img_height > max_height && img_width > max_width) {
+            this.imageError =
+              'Maximum dimentions allowed ' +
+              max_height +
+              '*' +
+              max_width +
+              'px';
+            return false;
+          } else {
+            const imgBase64Path = e.target.result;
+            this.cardImageBase64 = imgBase64Path;
+            this.isImageSaved = true;
+            this.user.imageprofile = new Alias();
+            this.user.imageprofile.bytes = this.cardImageBase64.substring(23);
+          }
+        };
+      };
+      reader.readAsDataURL(fileInput.target.files[0]);
+    }
   }
 }

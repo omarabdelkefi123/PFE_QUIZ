@@ -20,7 +20,7 @@ export class AdminService {
   deleteadministrator(id: number): Observable<any> {
     return this.http.delete(`${this.baseUrl}` + `/administrator/delete/${id}`);
   }
-  updateadministrator(administrator: Administrator): Observable<any> {
+  updateadministrator(administrator): Observable<any> {
     return this.http.put(`${this.baseUrl}` + `/administrator/update`, administrator);
   }
 }

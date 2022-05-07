@@ -65,9 +65,38 @@ public class AdministratorController {
 	}
 
 	// update Administrator
-	@PutMapping("/administrator/update")
-	public Administrator updateAdministrator(@RequestBody Administrator Administrator) {
-		return AdministratorService.update(Administrator);
+	@PutMapping(value = "/administrator/update", consumes = { MediaType.APPLICATION_JSON_VALUE,
+			MediaType.MULTIPART_FORM_DATA_VALUE })
+	public void updateAdministrator(@RequestPart(required = false, value = "files") List<MultipartFile> files,
+			@RequestPart("admin") String admin)
+			throws ServiceExeption, JsonMappingException, JsonProcessingException {
+		
+		
+		System.out.println("hello");
+		List<Document> documents = new ArrayList<>();
+		// convert string to administrator
+		ObjectMapper mapper = new ObjectMapper();
+		JsonNode node = mapper.readTree(admin);
+		Administrator adminstrator = mapper.convertValue(node, Administrator.class);
+		if (!CollectionUtils.isEmpty(files)) {
+			files.stream().forEach(file -> {
+				try {
+					Document filemode = new Document(file.getOriginalFilename(), file.getContentType(),
+							file.getBytes());
+					documents.add(filemode);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			});
+
+		}
+		if (!documents.isEmpty()) {
+			System.out.print("Add documents");
+			adminstrator.setDocuments(documents);
+		}
+		
+		AdministratorService.update(adminstrator);
 
 	}
 

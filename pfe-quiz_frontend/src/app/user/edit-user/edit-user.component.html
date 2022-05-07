@@ -50,7 +50,7 @@
         </div>
         <div class="field col-12 md:col-4">
             <span class="p-float-label">
-                <p-calendar [(ngModel)]="data_inserimento"></p-calendar>
+                <p-calendar [(ngModel)]="user.dateofbirth"></p-calendar>
                 <label for="calendar">Date of birth</label>
             </span>
             <small *ngIf="dateControl.errors && dateControl.errors.required && dateControl.touched" class="p-error">Date
@@ -76,22 +76,80 @@
         </div>
     </div>
     <h5>Image</h5>
-    <p-fileUpload mode="basic" url="./upload.php" accept="image/*" maxFileSize="1000000" chooseLabel="Browse"
-        (onSelect)="selectImage($event.files)" [files]="images"></p-fileUpload>
+
+    <div class="align-items-center justify-content-center" style="display: flex;">
+        <div>
+            <div class="group-gap">
+                <!-- Upload image -->
+                <div class="avatar-upload">
+                    <div class="avatar-edit">
+                        <input type='file' id="imageUpload" accept=".png, .jpg, .jpeg" #fileInput
+                            (change)="fileChangeEvent($event)" />
+                    </div>
+                    <div class="avatar-preview">
+                        <p-image *ngIf="user.imageprofile" [src]="'data:image/jpg;base64,'+user.imageprofile.bytes"
+                            alt="Image" width="250" [preview]="true"></p-image>
+                    </div>
+                </div>
+            </div>
+            <!-- Submit Button -->
+            <button type="submit" style="margin-left: 64px;" class="btn btn-danger btn-lg btn-block"
+                (click)="fileInput.click()">Upload
+                Image</button>
+        </div>
+    </div>
+
 
     <h5>Documents</h5>
 
-    <p-fileUpload name="demo[]" url="./upload.php" (onUpload)="onUpload($event)" multiple="multiple" accept="image/*"
-        maxFileSize="1000000">
-        <ng-template pTemplate="content">
-            <ul *ngIf="uploadedFiles.length">
-                <li *ngFor="let file of uploadedFiles">{{file.name}} - {{file.size}} bytes</li>
-            </ul>
-        </ng-template>
-    </p-fileUpload>
+    <div class="centere">
+        <div class=" text-center ">
+            <label class="btn ">
+                <input type="file" (change)="selectFile($event)">
+            </label>
+        </div>
+        <div class="table-wrapper">
+            <table class="fl-table">
+                <thead>
+                    <tr>
+                        <th>Nom de fichier</th>
+                        <th>Supprimer</th>
+                    </tr>
+                </thead>
+                <tbody class="upload-name-style">
+                    <tr *ngFor="let item of documents; let i=index">
+                        <td><strong>{{ item.name }}</strong></td>
+                        <td><button (click)="deleteDocument(i)" style="border: none;cursor: pointer;
+                                  overflow: visible;
+                                  padding: 4px 8px;"><i class="pi pi-trash"></i></button>
+
+                            <button style="border: none;
+                        overflow: visible;
+                        padding: 4px 8px;">
+                                <a class="linkdownload" style="color: black;"
+                                    href="{{urlServer}}api/administrator/displayfile/{{item.id}}" target="_blank">
+                                    <i class="pi pi-eye"></i>
+                                </a>
+                            </button>
+
+                            <button style="border: none;
+                        overflow: visible;
+                        padding: 4px 8px;">
+                                <a style="color: black;" class="linkdownload"
+                                    href="{{urlServer}}api/administrator/downloadfile/{{item.id}}">
+                                    <i class="pi pi-download"></i>
+                                </a>
+                            </button>
+
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 
 
-    <button pButton pRipple type="button" (click)="editUser()" label="Secondary"
+    <button pButton pRipple type="button" (click)="editUser()" label="Edit"
         class="p-button-secondary mr-2 mb-2"></button>
     <button pButton pRipple type="button" label="Primary" class="mr-2 mb-2 "></button>
 
