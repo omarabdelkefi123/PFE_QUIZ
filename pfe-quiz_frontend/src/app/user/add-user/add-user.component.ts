@@ -17,6 +17,11 @@ export class AddUserComponent implements OnInit {
   roles: Role[];
   uploadedFiles: any[] = [];
   user: User = new User();
+  imageError: string;
+  cardImageBase64: string;
+  isImageSaved: boolean;
+  files: File[] = new Array<File>();
+  selectedFiles: FileList;
   //Nom
   fullnameControl = new FormControl('', [
     Validators.required,
@@ -25,6 +30,8 @@ export class AddUserComponent implements OnInit {
   //date
   startDate = new Date(1970, 0, 1);
   startexp = new Date(2018, 0, 1);
+  selectedGender;
+  selectedCity;
   //Function to testdate
   testDate(dateofb) {
     var timeDiff = Math.abs(Date.now() - dateofb);
@@ -91,7 +98,7 @@ export class AddUserComponent implements OnInit {
     Validators.required,
     Validators.nullValidator,
   ]);
-  constructor(private router: Router,private administratorservice: AdminService,private roleservice: RoleService, private countryService: CountryService) {
+  constructor(private router: Router, private administratorservice: AdminService, private roleservice: RoleService, private countryService: CountryService) {
 
     this.reloadData();
   }
@@ -101,30 +108,38 @@ export class AddUserComponent implements OnInit {
   }
   ngOnInit() {
   }
-
-  onUpload(event) {
-    console.log(event)
-    for (const file of event.files) {
-      this.uploadedFiles.push(file);
-    }
-  }
-  onUploadImage(event){
-    console.log(event)
-  }
   addUser() {
-    this.administratorservice.addadministrator(this.user)
+    this.user.gender = this.selectedGender.value;
+    this.user.city = this.selectedCity.value;
+    const formData: FormData = new FormData();
+    this.files.forEach(element => {
+      formData.append('files', element);
+    });
+    formData.append('image', this.imagesss[0]);
+    formData.append('admin', JSON.stringify(this.user));
+    ;
+    this.administratorservice.addadministrator(formData)
       .subscribe(data => {
-        debugger;
+        ;
         console.log(data);
-        this.router.navigate(["/alluser/administrator"]);
+        this.router.navigate(["/user/alluser"]);
       },
         error => {
-          debugger;
+          ;
           console.log(error);
         }
       );
   }
 
-
+  selectFile(event) {
+    this.selectedFiles = event;
+    this.files.push(this.selectedFiles.item(0));
+  }
+  selectedImages: FileList;
+  imagesss: File[] = new Array<File>();
+  selectImage(event) {
+    this.selectedImages = event;
+    this.imagesss.push(this.selectedImages.item(0));
+  }
 
 }

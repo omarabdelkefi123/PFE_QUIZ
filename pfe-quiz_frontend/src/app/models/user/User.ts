@@ -1,4 +1,3 @@
-import { Image } from "./image";
 import { Role } from "./role";
 
 import {Document} from "./document";
@@ -14,8 +13,8 @@ export class User{
     city:string;
     phone:number;
     type:string;
-    imageprofile:Image;
-    images:Image[];
+    imageprofile:Document;
+    images:Document[];
     lastlogin:Date;
     isactive:boolean;
     role:Role;

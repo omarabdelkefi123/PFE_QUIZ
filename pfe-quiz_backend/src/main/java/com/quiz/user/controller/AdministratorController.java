@@ -74,9 +74,11 @@ public class AdministratorController {
 	// add new Administrator
 	@PostMapping(value = "/administrator/create", consumes = { MediaType.APPLICATION_JSON_VALUE,
 			MediaType.MULTIPART_FORM_DATA_VALUE })
-	public void fileUpload(@RequestPart("files") List<MultipartFile> files, @RequestPart("admin") String admin)
+	public void createUser(@RequestPart(required = false, value = "files") List<MultipartFile> files,
+			@RequestPart("admin") String admin, @RequestPart(required = false, value = "image") MultipartFile image)
 			throws ServiceExeption, JsonMappingException, JsonProcessingException {
 
+		System.out.println("hello");
 		List<Document> documents = new ArrayList<>();
 		// convert string to administrator
 		ObjectMapper mapper = new ObjectMapper();
@@ -98,6 +100,15 @@ public class AdministratorController {
 		if (!documents.isEmpty()) {
 			System.out.print("Add documents");
 			adminstrator.setDocuments(documents);
+		}
+		if (image != null) {
+			try {
+				Document filemode = new Document(image.getOriginalFilename(), image.getContentType(), image.getBytes());
+				adminstrator.setImageprofile(filemode);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 
 		AdministratorService.save(adminstrator);

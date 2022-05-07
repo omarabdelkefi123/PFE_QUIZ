@@ -37,9 +37,6 @@ public class RecruteurController {
 	@Autowired
 	private RecruteurService RecruteurService;
 
-	@Autowired
-	private SimpMessagingTemplate template;
-
 	private Notifications notifications = new Notifications(0);
 
 	// Get All Recruteurs
@@ -47,7 +44,6 @@ public class RecruteurController {
 	public List<Recruteur> getRecruteurs() {
 		System.out.print("id= " + notifications.getId());
 		System.out.print("count= " + notifications.getCount());
-		template.convertAndSend("/topic/notification", notifications);
 
 		return RecruteurService.getRecruteurs();
 	}

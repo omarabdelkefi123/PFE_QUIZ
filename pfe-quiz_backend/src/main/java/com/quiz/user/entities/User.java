@@ -56,10 +56,7 @@ public class User implements Serializable {
 
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "image_pro")
-	private Image imageprofile;
-
-	@OneToMany(cascade = CascadeType.ALL)
-	private List<Image> images;
+	private Document imageprofile;
 
 	private String type;
 	/** The lastlogin. */
@@ -90,8 +87,8 @@ public class User implements Serializable {
 	
 
 	public User(long id, String username, String password, String fullname, Date dateofbirth, String gender, String cin,
-			String city, Long phone, String postalCode, Image imageprofile, List<Image> images, String type,
-			Date lastlogin, Boolean isactive, List<Document> documents, Date dateCreation, Role role) {
+			String city, Long phone, String postalCode, Document imageprofile, String type, Date lastlogin,
+			Boolean isactive, List<Document> documents, Date dateCreation, Role role) {
 		super();
 		this.id = id;
 		this.username = username;
@@ -104,7 +101,6 @@ public class User implements Serializable {
 		this.phone = phone;
 		this.postalCode = postalCode;
 		this.imageprofile = imageprofile;
-		this.images = images;
 		this.type = type;
 		this.lastlogin = lastlogin;
 		this.isactive = isactive;
@@ -178,14 +174,6 @@ public class User implements Serializable {
 		this.role = role;
 	}
 
-	public Image getImageprofile() {
-		return imageprofile;
-	}
-
-	public void setImageprofile(Image imageprofile) {
-		this.imageprofile = imageprofile;
-	}
-
 	public Date getDateCreation() {
 		return dateCreation;
 	}
@@ -250,12 +238,14 @@ public class User implements Serializable {
 		this.postalCode = postalCode;
 	}
 
-	public List<Image> getImages() {
-		return images;
+
+	public Document getImageprofile() {
+		return imageprofile;
 	}
 
-	public void setImages(List<Image> images) {
-		this.images = images;
+
+	public void setImageprofile(Document imageprofile) {
+		this.imageprofile = imageprofile;
 	}
 
 

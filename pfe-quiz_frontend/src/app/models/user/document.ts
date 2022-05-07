@@ -7,7 +7,7 @@ export class Document {
     webkitRelativePath?:string;
     size:number;
     type:string;
-
+    bytes:any;
     
     
 }
