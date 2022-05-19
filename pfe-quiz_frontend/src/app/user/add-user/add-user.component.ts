@@ -117,7 +117,6 @@ export class AddUserComponent implements OnInit {
     });
     formData.append('image', this.imagesss[0]);
     formData.append('admin', JSON.stringify(this.user));
-    ;
     this.administratorservice.addadministrator(formData)
       .subscribe(data => {
         ;
