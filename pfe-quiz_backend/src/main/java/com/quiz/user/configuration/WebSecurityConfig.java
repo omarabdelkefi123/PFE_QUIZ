@@ -57,7 +57,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				// permit register and authenticate api
 				.authorizeRequests()
 				.antMatchers("/socket/**", "/gs-guide-websocket/**", "/authenticate", "/forgot-password",
-						"/api/administrator/downloadfile/**", "/api/administrator/displayfile/**")
+						"/api/user/downloadfile/**", "/api/user/displayfile/**")
 				.permitAll()
 				// .antMatchers("/api/**").hasAuthority("adming")
 

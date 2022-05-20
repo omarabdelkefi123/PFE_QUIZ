@@ -4,10 +4,11 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.quiz.recruitment.dao.TrainingDao;
 import com.quiz.recruitment.entities.Training;
-
+@Service
 public class TrainingService {
 	@Autowired
 	TrainingDao TrainingRepository;

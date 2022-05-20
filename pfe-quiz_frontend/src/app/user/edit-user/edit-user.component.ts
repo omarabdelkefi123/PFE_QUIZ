@@ -4,12 +4,11 @@ import { MessageService } from 'primeng/api';
 import { Role } from 'src/app/models/user/role';
 import { User } from 'src/app/models/user/User';
 import { CountryService } from 'src/app/service/countryservice';
-import { AdminService } from 'src/app/service/user/admin.service';
 import { RoleService } from 'src/app/service/user/role.service';
 import { FormControl, Validators } from '@angular/forms';
 import { DatePipe } from '@angular/common';
-import { Administrator } from 'src/app/models/user/administrator';
 import { Document as Alias } from 'src/app/models/user/document';
+import { UserService } from 'src/app/service/user/user.service';
 
 @Component({
   selector: 'app-edit-user',
@@ -21,7 +20,7 @@ export class EditUserComponent implements OnInit {
 
   roles: Role[];
   uploadedFiles: any[] = [];
-  user = new Administrator();
+  user = new User();
   imageError: string;
   cardImageBase64: string;
   isImageSaved: boolean;
@@ -109,7 +108,8 @@ export class EditUserComponent implements OnInit {
   id: number;
   i: number;
   urlServer: string = 'http://localhost:8080/';
-  constructor(public datepipe: DatePipe, private route: ActivatedRoute, private router: Router, private administratorservice: AdminService, private roleservice: RoleService, private countryService: CountryService) {
+  constructor(public datepipe: DatePipe, private route: ActivatedRoute, 
+    private router: Router, private administratorservice: UserService, private roleservice: RoleService, private countryService: CountryService) {
 
 
   }
@@ -121,7 +121,7 @@ export class EditUserComponent implements OnInit {
 
     this.id = this.route.snapshot.params['id'];
     this.i = 0;
-    this.administratorservice.getadministrator(this.id).subscribe(data => {
+    this.administratorservice.getuser(this.id).subscribe(data => {
       this.user = data;
       //this.RoleSelectedValue = data.role.id;
       this.documents = this.user.documents;
@@ -142,7 +142,7 @@ export class EditUserComponent implements OnInit {
       formData.append('documents', element);
     });
     formData.append('admin', JSON.stringify(this.user));
-    this.administratorservice.updateadministrator(formData)
+    this.administratorservice.updateuser(formData)
       .subscribe(data => {
         ;
         console.log(data);

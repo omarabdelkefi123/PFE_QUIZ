@@ -5,8 +5,8 @@ import { MessageService } from 'primeng/api';
 import { Role } from 'src/app/models/user/role';
 import { User } from 'src/app/models/user/User';
 import { CountryService } from 'src/app/service/countryservice';
-import { AdminService } from 'src/app/service/user/admin.service';
 import { RoleService } from 'src/app/service/user/role.service';
+import { UserService } from 'src/app/service/user/user.service';
 
 @Component({
   selector: 'app-add-user',
@@ -98,7 +98,7 @@ export class AddUserComponent implements OnInit {
     Validators.required,
     Validators.nullValidator,
   ]);
-  constructor(private router: Router, private administratorservice: AdminService, private roleservice: RoleService, private countryService: CountryService) {
+  constructor(private router: Router, private administratorservice: UserService, private roleservice: RoleService, private countryService: CountryService) {
 
     this.reloadData();
   }
@@ -117,7 +117,7 @@ export class AddUserComponent implements OnInit {
     });
     formData.append('image', this.imagesss[0]);
     formData.append('admin', JSON.stringify(this.user));
-    this.administratorservice.addadministrator(formData)
+    this.administratorservice.adduser(formData)
       .subscribe(data => {
         ;
         console.log(data);

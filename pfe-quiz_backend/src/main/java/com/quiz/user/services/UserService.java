@@ -7,41 +7,47 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.quiz.user.dao.AdministratorDao;
+import com.quiz.exception.ServiceExeption;
 import com.quiz.user.dao.UserDao;
-import com.quiz.user.entities.Administrator;
 import com.quiz.user.entities.User;
 
 @Service
 public class UserService {
 	@Autowired
+	UserDao Userdao;
+
+	@Autowired
 	private PasswordEncoder bcryptEncoder;
-	@Autowired
-	UserDao userdao;
 
-	@Autowired
-	AdministratorDao administratordao;
-
-	public User save(User User) {
+	public User save(User User) throws ServiceExeption {
 		User.setPassword(bcryptEncoder.encode(User.getPassword()));
-		User.setType("user");
-		return userdao.save(User);
+		User.setType("admin");
+		try {
+
+		} catch (Exception e) {
+			throw new ServiceExeption("error in database");
+		}
+		return Userdao.save(User);
+
 	}
 
-	public void update(User user) {
+	public User update(User User) {
+		Optional<User> adm = Userdao.findById(User.getId());
+		User.setPassword(adm.get().getPassword());
+		return Userdao.save(User);
 
 	}
 
 	public Optional<User> find(Long id) {
-		return userdao.findById(id);
+		return Userdao.findById(id);
 	}
 
 	public List<User> getUsers() {
-		return userdao.findAll();
+		return Userdao.findAll();
 	}
 
 	public boolean delete(Long id) {
-		userdao.deleteById(id);
+		Userdao.deleteById(id);
 		return true;
 	}
 

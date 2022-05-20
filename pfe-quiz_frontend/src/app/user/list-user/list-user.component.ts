@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { Product } from 'src/app/api/product';
-import { Administrator } from 'src/app/models/user/administrator';
+import { User } from 'src/app/models/user/User';
 import { ProductService } from 'src/app/service/productservice';
-import { AdminService } from 'src/app/service/user/admin.service';
+import { UserService } from 'src/app/service/user/user.service';
 
 @Component({
     selector: 'app-list-user',
@@ -45,11 +45,11 @@ export class ListUserComponent implements OnInit {
     isTableHasData = true;
     filtersocieties: any;
     isalladmin = false;
-    administrators: Administrator[];
-    filteradministrators: Administrator[] = [];
+    administrators: User[];
+    filteradministrators: User[] = [];
 
     constructor(private router: Router, private productService: ProductService, private messageService: MessageService,
-        private confirmationService: ConfirmationService, private administratorservice: AdminService,) { }
+        private confirmationService: ConfirmationService, private administratorservice: UserService,) { }
 
     ngOnInit() {
         this.productService.getProducts().then(data => this.products = data);
@@ -72,7 +72,7 @@ export class ListUserComponent implements OnInit {
     }
 
     reloadData() {
-        this.administratorservice.getadministratorList()
+        this.administratorservice.getuserList()
             .subscribe(data => {
                 console.log(data)
                 this.administrators = data;
@@ -118,7 +118,7 @@ export class ListUserComponent implements OnInit {
         this.administrators = this.administrators.filter(val => !this.selectedUsers.includes(val));
         this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Users Deleted', life: 3000 });
         this.selectedUsers.forEach(user => {
-            this.administratorservice.deleteadministrator(user.id)
+            this.administratorservice.deleteuser(user.id)
                 .subscribe(data => {
             });
         });
@@ -134,7 +134,7 @@ export class ListUserComponent implements OnInit {
     }
     confirmDeleteUser() {
         this.deleteUserDialog = false;
-        this.administratorservice.deleteadministrator(this.user.id)
+        this.administratorservice.deleteuser(this.user.id)
             .subscribe(data => {
                 this.administrators = this.administrators.filter(val => val.id !== this.user.id);
                 this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'User Deleted', life: 3000 });
