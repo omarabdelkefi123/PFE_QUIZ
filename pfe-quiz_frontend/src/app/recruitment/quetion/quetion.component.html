@@ -1,27 +1,69 @@
 <div class="grid">
-    <div class="col-12">
+	<div class="col-12">
 		<div class="card">
-			<h5>Row Expand</h5>
 			<p-toast></p-toast>
-			<p-table [value]="quetions" dataKey="name" [expandedRowKeys]="expandedRows" responsiveLayout="scroll">
+			<p-toolbar styleClass="mb-4">
+				<ng-template pTemplate="left">
+					<div class="my-2">
+						<button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success mr-2"
+							(click)="addQuestion()"></button>
+						<button pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger"
+							(click)="deleteSelectedQuestions()"
+							[disabled]="!selectedUsers || !selectedUsers.length"></button>
+					</div>
+				</ng-template>
+
+				<ng-template pTemplate="right">
+					<p-fileUpload mode="basic" accept="image/*" [maxFileSize]="1000000" label="Import"
+						chooseLabel="Import" class="mr-2 inline-block"></p-fileUpload>
+					<button pButton pRipple label="Export" icon="pi pi-upload" class="p-button-help"
+						(click)="dt.exportCSV()"></button>
+				</ng-template>
+			</p-toolbar>
+			<p-table [value]="quetions" dataKey="name" [globalFilterFields]="['question']"
+				[expandedRowKeys]="expandedRows" responsiveLayout="scroll">
 				<ng-template pTemplate="caption">
-					<button pButton icon="pi pi-fw {{isExpanded ? 'pi-minus' : 'pi-plus'}}" label="{{isExpanded ? 'Collapse All' : 'Expand All'}}" (click)="expandAll()"></button>
-					<div class="flex table-header">
+					<div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
+						<h5 class="m-0">Questions</h5>
+						<span class="block mt-2 md:mt-0 p-input-icon-left">
+							<i class="pi pi-search"></i>
+							<input pInputText type="text" style="min-width: 289px;"
+								(input)="dt.filterGlobal($event.target.value, 'contains')"
+								placeholder="Search for Quetions" />
+						</span>
 					</div>
 				</ng-template>
 				<ng-template pTemplate="header">
 					<tr>
 						<th style="width: 3rem"></th>
-						<th pSortableColumn="name">Name <p-sortIcon field="name"></p-sortIcon></th>
+						<th style="width: 3rem">
+							<p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+						</th>
+						<th pSortableColumn="name">Description <p-sortIcon field="name"></p-sortIcon>
+						</th>
+						<th></th>
 					</tr>
 				</ng-template>
 				<ng-template pTemplate="body" let-quetion let-expanded="expanded">
 					<tr>
 						<td>
-							<button type="button" pButton pRipple [pRowToggler]="quetion" class="p-button-text p-button-rounded p-button-plain" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
+							<button type="button" pButton pRipple [pRowToggler]="quetion"
+								class="p-button-text p-button-rounded p-button-plain"
+								[icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
+						</td>
+						<td>
+							<p-tableCheckbox [value]="quetion"></p-tableCheckbox>
 						</td>
 						<td style="min-width: 12rem;">{{quetion.question}}</td>
-						
+						<td>
+							<div class="flex">
+								<button pButton pRipple icon="pi pi-pencil"
+									class="p-button-rounded p-button-success mr-2"
+									(click)="editQuestion(quetion)"></button>
+								<button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning"
+									(click)="deleteQuestion(quetion)"></button>
+							</div>
+						</td>
 					</tr>
 				</ng-template>
 				<ng-template pTemplate="rowexpansion" let-quetion>
@@ -31,17 +73,20 @@
 								<p-table [value]="quetion.suggestions" dataKey="id" responsiveLayout="scroll">
 									<ng-template pTemplate="header">
 					<tr>
-						<th pSortableColumn="id">Id <p-sortIcon field="price"></p-sortIcon></th>
-						
+						<th pSortableColumn="id">Id <p-sortIcon field="price"></p-sortIcon>
+						</th>
+
 						<th style="width: 4rem"></th>
 					</tr>
 				</ng-template>
 				<ng-template pTemplate="body" let-suggetion>
 					<tr>
 						<td>{{suggetion.description}}</td>
-						
-						
-						<td><p-button type="button" icon="pi pi-search"></p-button></td>
+
+
+						<td>
+							<p-button type="button" icon="pi pi-search"></p-button>
+						</td>
 					</tr>
 				</ng-template>
 				<ng-template pTemplate="emptymessage">
@@ -56,5 +101,5 @@
 		</ng-template>
 		</p-table>
 	</div>
-	</div>
+</div>
 </div>

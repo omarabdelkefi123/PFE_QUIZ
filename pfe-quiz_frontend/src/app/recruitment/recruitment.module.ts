@@ -4,6 +4,7 @@ import { QuetionComponent } from './quetion/quetion.component';
 import { RecruitmentRoutingModule } from './recruitment-routing.module';
 import { SharedModuleModule } from '../shared-module/shared-module.module';
 import { AddQuestionComponent } from './add-question/add-question.component';
+import { EditQuestionComponent } from './edit-question/edit-question.component';
 
 
 
@@ -11,7 +12,8 @@ import { AddQuestionComponent } from './add-question/add-question.component';
 @NgModule({
   declarations: [
     QuetionComponent,
-    AddQuestionComponent
+    AddQuestionComponent,
+    EditQuestionComponent
   ],
   imports: [
     CommonModule,
