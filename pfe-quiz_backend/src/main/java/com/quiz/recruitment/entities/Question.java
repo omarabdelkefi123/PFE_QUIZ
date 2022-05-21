@@ -31,16 +31,21 @@ public class Question implements Serializable {
 
 	private TypeQuestionEnum typeQuestion;
 
-	private String quetion;
+	private String question;
 
-	@OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
+	@OneToMany(cascade = CascadeType.ALL)
 	private List<Suggestion> suggestions;
 
-	public Question(long id, TypeQuestionEnum typeQuestion, String quetion, List<Suggestion> suggestions) {
+	public Question() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public Question(long id, TypeQuestionEnum typeQuestion, String question, List<Suggestion> suggestions) {
 		super();
 		this.id = id;
 		this.typeQuestion = typeQuestion;
-		this.quetion = quetion;
+		this.question = question;
 		this.suggestions = suggestions;
 	}
 
@@ -52,12 +57,12 @@ public class Question implements Serializable {
 		this.typeQuestion = typeQuestion;
 	}
 
-	public String getQuetion() {
-		return quetion;
+	public String getQuestion() {
+		return question;
 	}
 
-	public void setQuetion(String quetion) {
-		this.quetion = quetion;
+	public void setQuestion(String question) {
+		this.question = question;
 	}
 
 	public List<Suggestion> getSuggestions() {

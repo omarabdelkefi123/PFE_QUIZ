@@ -1,17 +1,9 @@
+import { Suggestion } from "./Suggestion";
+import { TypeQuestionEnum } from "./typeQuestionEnum";
 
-export class Question{
-    id:number;
-    username:string;
-    password:string;
-    fullname:string;
-    dateofbirth:Date;
-    gender:string;
-    cin:string;
-    city:string;
-    phone:number;
-    type:string;
-    imageprofile:any;
-    images:Document[];
-    lastlogin:Date;
-    isactive:boolean;
+export class Question {
+    id: number;
+    question: string;
+    typeQuestion: TypeQuestionEnum;
+    suggestions: Suggestion[];
 }

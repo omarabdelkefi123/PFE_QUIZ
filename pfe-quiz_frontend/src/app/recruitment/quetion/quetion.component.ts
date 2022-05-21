@@ -46,6 +46,7 @@ export class QuetionComponent implements OnInit {
     isalladmin = false;
     quetions: Question[];
     filterquetions: Question[] = [];
+    expandedRows = {};
 
     constructor(private router: Router, private productService: ProductService, private messageService: MessageService,
         private confirmationService: ConfirmationService, private quetionservice: QuestionService,) { }

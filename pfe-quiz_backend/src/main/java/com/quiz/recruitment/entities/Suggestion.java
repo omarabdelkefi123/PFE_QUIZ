@@ -7,6 +7,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -21,28 +22,23 @@ public class Suggestion implements Serializable {
 	private long id;
 	private static final long serialVersionUID = 1L;
 
-	@JsonBackReference
-	@ManyToOne(fetch = FetchType.EAGER)
-	private Question question;
+	
 
 	private boolean correctAnswer;
 
 	private String description;
 
+
+	public Suggestion() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	
 	public Suggestion(long id, Question question, boolean correctAnswer, String description) {
 		super();
 		this.id = id;
-		this.question = question;
 		this.correctAnswer = correctAnswer;
 		this.description = description;
-	}
-
-	public Question getQuestion() {
-		return question;
-	}
-
-	public void setQuestion(Question question) {
-		this.question = question;
 	}
 
 	public boolean isCorrectAnswer() {
