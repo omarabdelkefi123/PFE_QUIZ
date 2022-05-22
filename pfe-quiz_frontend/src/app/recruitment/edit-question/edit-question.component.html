@@ -1,1 +1,113 @@
-<p>edit-question works!</p>
+<div class="card">
+
+    <h5>Question</h5>
+    <textarea pInputTextarea placeholder=" Description of Your Question" [(ngModel)]="question.question" autoResize
+        rows="4" cols="110"></textarea>
+
+
+    <h5>Type Response</h5>
+    <div class="grid listcheckbox">
+        <div class="col-12 md:col-4">
+            <div class="field-radiobutton mb-0">
+                <p-radioButton name="typeQuestionEnum" (onClick)="onInputResponseChange()"
+                    [value]="typeQuestionEnum.CHECKBOX" [(ngModel)]="question.typeQuestion" id="city1"></p-radioButton>
+                <label for="city1">one response</label>
+            </div>
+        </div>
+        <div class="col-12 md:col-4">
+            <div class="field-radiobutton">
+                <p-radioButton name="city" value="{{typeQuestionEnum.RADIOBUTTON}}" (onClick)="onInputResponseChange()"
+                    [(ngModel)]="question.typeQuestion" id="city2"></p-radioButton>
+                <label for="city2">multiple response</label>
+            </div>
+        </div>
+        <div class="col-12 md:col-4">
+            <div class="field-radiobutton">
+                <p-radioButton name="city" value="{{typeQuestionEnum.OTHERS}}" (onClick)="onInputResponseChange()"
+                    [(ngModel)]="question.typeQuestion" id="city3"></p-radioButton>
+                <label for="city3">others</label>
+            </div>
+        </div>
+    </div>
+
+    <p-divider align="center" *ngIf="question.typeQuestion !== typeQuestionEnum.OTHERS">
+        <p-button label="Add Suggestion" icon="pi pi-plus-circle" styleClass="p-button-outlined"
+            (click)="addSuggetion()"></p-button>
+    </p-divider>
+
+    <!------------------------------------------list suggetions-->
+
+    <h5 *ngIf="question.typeQuestion !== typeQuestionEnum.OTHERS">Suggestions</h5>
+    <div class="table-wrapper" *ngIf="question.typeQuestion !== typeQuestionEnum.OTHERS">
+        <table class="fl-table">
+            <thead>
+                <tr>
+                    <th>Description</th>
+                    <th style="width: 15%;">Is Correct</th>
+                    <th style="width: 16%;">Action</th>
+                </tr>
+            </thead>
+            <tbody class="upload-name-style">
+                <tr *ngFor="let item of suggestions; let i=index">
+                    <td><strong>{{ item.description }}</strong></td>
+                    <td>
+                        <strong *ngIf="item.correctAnswer">Yes</strong>
+                        <strong *ngIf="!item.correctAnswer">No</strong>
+                    </td>
+                    <td><button (click)="editSuggetion(i)" style="border: none;cursor: pointer;
+                              overflow: visible;
+                              padding: 4px 8px;"><i class="pi pi-pencil"></i></button>
+                        <button (click)="deleteSuggetion(i)" style="border: none;cursor: pointer;
+                        overflow: visible;
+                        padding: 4px 8px;"><i class="pi pi-trash"></i></button>
+
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-------------------------------------------dialog add suggetions-->
+    <p-dialog [(visible)]="suggestionDialog" [style]="{width: '450px'}" header="Suggestion Details" [modal]="true"
+        class="p-fluid">
+        <ng-template pTemplate="content">
+            <div class="field">
+                <label for="description">Description</label>
+                <textarea id="description" pInputTextarea [(ngModel)]="suggestion.description" required rows="3"
+                    cols="20"></textarea>
+            </div>
+            <h5>Type Suggestion</h5>
+            <div class="grid listsuggestion">
+                <div class="col-12 md:col-6">
+                    <div class="field-radiobutton mb-0">
+                        <p-radioButton name="typeQuestionEnum" [value]="true" [(ngModel)]="suggestion.correctAnswer"
+                            id="city1"></p-radioButton>
+                        <label for="city1">Correct Suggetion</label>
+                    </div>
+                </div>
+                <div class="col-12 md:col-6">
+                    <div class="field-radiobutton">
+                        <p-radioButton name="city" [value]="false" [(ngModel)]="suggestion.correctAnswer" id="city2">
+                        </p-radioButton>
+                        <label for="city2">InCorrect Suggetion</label>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+
+        <ng-template pTemplate="footer">
+            <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text"
+                (click)="hideDialog()"></button>
+            <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text"
+                (click)="saveSuggestion()"></button>
+        </ng-template>
+    </p-dialog>
+    <div style="margin: auto;width: auto;width: 31%;padding-top: 26px;">
+        <button pButton pRipple type="button" (click)="editQuetion()" label="Edit Question"
+            class="p-button-secondary mr-2 mb-2"></button>
+        <button pButton pRipple type="button" label="Return To List" routerLink="../../quetion"
+            class="mr-2 mb-2 "></button>
+    </div>
+
+
+</div>

@@ -30,11 +30,44 @@
         </div>
     </div>
 
-    <p-divider align="center">
+    <p-divider align="center" *ngIf="question.typeQuestion !== typeQuestionEnum.OTHERS">
         <p-button label="Add Suggestion" icon="pi pi-plus-circle" styleClass="p-button-outlined"
             (click)="addSuggetion()"></p-button>
     </p-divider>
 
+    <!------------------------------------------list suggetions-->
+
+    <h5 *ngIf="question.typeQuestion !== typeQuestionEnum.OTHERS">Suggestions</h5>
+    <div class="table-wrapper" *ngIf="question.typeQuestion !== typeQuestionEnum.OTHERS">
+        <table class="fl-table">
+            <thead>
+                <tr>
+                    <th>Description</th>
+                    <th style="width: 15%;">Is Correct</th>
+                    <th style="width: 16%;">Action</th>
+                </tr>
+            </thead>
+            <tbody class="upload-name-style">
+                <tr *ngFor="let item of suggestions; let i=index">
+                    <td><strong>{{ item.description }}</strong></td>
+                    <td>
+                        <strong *ngIf="item.correctAnswer">Yes</strong>
+                        <strong *ngIf="!item.correctAnswer">No</strong>
+                    </td>
+                    <td><button (click)="editSuggetion(i)" style="border: none;cursor: pointer;
+                              overflow: visible;
+                              padding: 4px 8px;"><i class="pi pi-pencil"></i></button>
+                        <button (click)="deleteSuggetion(i)" style="border: none;cursor: pointer;
+                        overflow: visible;
+                        padding: 4px 8px;"><i class="pi pi-trash"></i></button>
+
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-------------------------------------------dialog add suggetions-->
     <p-dialog [(visible)]="suggestionDialog" [style]="{width: '450px'}" header="Suggestion Details" [modal]="true"
         class="p-fluid">
         <ng-template pTemplate="content">
@@ -69,8 +102,12 @@
                 (click)="saveSuggestion()"></button>
         </ng-template>
     </p-dialog>
-    <button pButton pRipple type="button" (click)="addQuetion()" label="add"
-        class="p-button-secondary mr-2 mb-2"></button>
-    <button pButton pRipple type="button" label="Cancel" class="mr-2 mb-2 "></button>
+    <div style="margin: auto;width: auto;width: 31%;padding-top: 26px;">
+        <button pButton pRipple type="button" (click)="addQuetion()" label="Add Question"
+            class="p-button-secondary mr-2 mb-2"></button>
+        <button pButton pRipple type="button" label="Return To List" routerLink="../quetion"
+            class="mr-2 mb-2 "></button>
+    </div>
+
 
 </div>

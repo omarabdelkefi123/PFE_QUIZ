@@ -73,17 +73,20 @@
 								<p-table [value]="quetion.suggestions" dataKey="id" responsiveLayout="scroll">
 									<ng-template pTemplate="header">
 					<tr>
-						<th pSortableColumn="id">Id <p-sortIcon field="price"></p-sortIcon>
+						<th pSortableColumn="description">Suggetion<p-sortIcon field="price"></p-sortIcon>
 						</th>
-
+						<th pSortableColumn="correctAnswer">Is Correct<p-sortIcon field="price"></p-sortIcon>
+						</th>
 						<th style="width: 4rem"></th>
 					</tr>
 				</ng-template>
 				<ng-template pTemplate="body" let-suggetion>
 					<tr>
 						<td>{{suggetion.description}}</td>
-
-
+						<td>
+							<strong *ngIf="suggetion.correctAnswer">Yes</strong>
+							<strong *ngIf="!suggetion.correctAnswer">No</strong>
+						</td>
 						<td>
 							<p-button type="button" icon="pi pi-search"></p-button>
 						</td>
