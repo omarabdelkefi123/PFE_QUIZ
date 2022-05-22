@@ -28,26 +28,26 @@ public class TestController {
 	// ************************************Api
 	// Test********************************************************//
 	// add new Test
-	@PostMapping("/Test/add")
+	@PostMapping("/test/add")
 	public Test createTest(@RequestBody Test Test) {
 		return Testservice.save(Test);
 	}
 
 	// Get All Tests
-	@GetMapping("/Test/liste")
+	@GetMapping("/test/liste")
 	public List<Test> getTests() {
 		return Testservice.getTests();
 	}
 
 	// find by id
-	@GetMapping("/Test/{id}")
+	@GetMapping("/test/{id}")
 	public Optional<Test> getTest(@PathVariable Long id) {
 		return Testservice.find(id);
 
 	}
 
 	// Delete Test
-	@DeleteMapping("/Test/delete/{id}")
+	@DeleteMapping("/test/delete/{id}")
 	public boolean deleteTest(@PathVariable long id) {
 		Testservice.delete(id);
 
@@ -55,7 +55,7 @@ public class TestController {
 	}
 
 	// update Test
-	@PutMapping("/Test/update")
+	@PutMapping("/test/update")
 	public Test updateTest(@RequestBody Test Test) {
 		return Testservice.save(Test);
 

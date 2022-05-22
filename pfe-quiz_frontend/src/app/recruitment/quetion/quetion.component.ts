@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { Question } from 'src/app/models/recruitment/Question';
+import { Test } from 'src/app/models/recruitment/Test';
 import { QuestionService } from 'src/app/service/recruitment/question.service';
+import { TestService } from 'src/app/service/recruitment/test.service';
 @Component({
     selector: 'app-quetion',
     templateUrl: './quetion.component.html',
@@ -12,9 +14,12 @@ import { QuestionService } from 'src/app/service/recruitment/question.service';
 export class QuetionComponent implements OnInit {
 
 
+    test: Test = new Test();
     deleteQuestionDialog: boolean = false;
 
     deleteQuestionsDialog: boolean = false;
+
+    createTestDialog: boolean = false;
 
     Question;
 
@@ -36,7 +41,9 @@ export class QuetionComponent implements OnInit {
     expandedRows = {};
 
     constructor(private router: Router, private messageService: MessageService,
-        private confirmationService: ConfirmationService, private quetionservice: QuestionService,) { }
+        private confirmationService: ConfirmationService, private quetionservice: QuestionService,
+
+        private testService: TestService) { }
 
     ngOnInit() {
         this.reloadData();
@@ -58,6 +65,9 @@ export class QuetionComponent implements OnInit {
         this.deleteQuestionsDialog = true;
     }
 
+    createSelectedTests() {
+        this.createTestDialog = true;
+    }
     editQuestion(Question) {
         this.router.navigate(["recruitment/edit", Question.id]);
     }
@@ -79,6 +89,16 @@ export class QuetionComponent implements OnInit {
         });
         this.selectedQuestions = null;
 
+    }
+    confirmCreationTestsSelected() {
+        this.deleteQuestionsDialog = false;
+        this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Test Created', life: 3000 });
+        this.test.questions = this.selectedQuestions;
+        this.testService.createtest(this.test).subscribe(data => {
+            console.log(data)
+        });
+        console.log("test will be created under quetions :" + this.selectedQuestions)
+        this.selectedQuestions = null;
     }
 
 
