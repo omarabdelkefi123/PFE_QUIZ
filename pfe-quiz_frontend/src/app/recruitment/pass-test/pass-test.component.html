@@ -1,0 +1,35 @@
+<div class="card">
+    <h1>Test {{test.name}}</h1>
+    <div class="stepper-wrapper">
+        <div class="stepper-item " [ngClass]="{'completed': i < currentStep , 'active' : i === currentStep -1 }" *ngFor="let item of questions; let i = index">
+            <div class="step-counter">{{i + 1}}</div> 
+        </div>
+    </div>
+    <form class="form">
+  
+        <h2>Checkboxes</h2>
+        <div class="inputGroup">
+          <input id="option1" name="option1" type="checkbox"/>
+          <label  for="option1">Option One</label>
+        </div>
+        
+        <div class="inputGroup">
+          <input id="option2" name="option2" type="checkbox"/>
+          <label class="eeeee" for="option2">Option Two</label>
+        </div>
+        
+        <h2>Radio Buttons</h2>
+        <div class="inputGroup">
+          <input id="radio1" name="radio" type="radio"/>
+          <label class ="radio" for="radio1">Yes</label>
+        </div>
+        <div class="inputGroup">
+          <input id="radio2" name="radio" type="radio"/>
+          <label class ="radio" for="radio2">No</label>
+        </div>
+      </form>
+    <div class="buttons">
+        <button style="min-width: 105px;" pButton pRipple label="Next" icon="pi pi-angle-double-right" iconPos="right" class="mr-2 mb-2" (click)="goToNextStep()"></button>
+    </div>
+   
+</div>
