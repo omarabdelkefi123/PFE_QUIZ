@@ -27,16 +27,11 @@ public class CommandLineAppStartupRunner implements CommandLineRunner {
 		roleservice.save(role);
 		role = new Role();
 		role.setId((long) 2);
-		role.setName("Enseignant");
-		role.setDescription("Enseignant Role");
-		roleservice.save(role);
-		role = new Role();
-		role.setId((long) 3);
 		role.setName("Etudiant");
 		role.setDescription("Etudiant Role");
 		roleservice.save(role);
 		role = new Role();
-		role.setId((long) 4);
+		role.setId((long) 3);
 		role.setName("Recruteur");
 		role.setDescription("Recruteur Role");
 		roleservice.save(role);
