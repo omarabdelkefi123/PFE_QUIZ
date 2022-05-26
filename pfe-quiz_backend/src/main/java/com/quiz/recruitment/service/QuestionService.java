@@ -2,6 +2,7 @@ package com.quiz.recruitment.service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,7 +29,9 @@ public class QuestionService {
 	}
 
 	public List<Question> getQuestions() {
-		return QuestionRepository.findAll();
+		List<Question> questions = QuestionRepository.findAll().stream().filter(que -> que.isFilter() == true)
+				.collect(Collectors.toList());
+		return questions;
 	}
 
 	public boolean delete(Long id) {
