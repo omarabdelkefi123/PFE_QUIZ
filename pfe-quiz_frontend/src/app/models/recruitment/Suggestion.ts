@@ -1,7 +1,8 @@
 
 
-export class Suggestion{
-    id:number;
-    description:string;
-    correctAnswer:boolean;
+export class Suggestion {
+    id: number;
+    description: string;
+    correctAnswer: boolean;
+    isChecked: boolean;
 }

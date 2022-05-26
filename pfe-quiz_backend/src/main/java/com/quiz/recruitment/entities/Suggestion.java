@@ -22,21 +22,21 @@ public class Suggestion implements Serializable {
 	private long id;
 	private static final long serialVersionUID = 1L;
 
-	
+	private boolean isChecked;
 
 	private boolean correctAnswer;
 
 	private String description;
 
-
 	public Suggestion() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
-	public Suggestion(long id, Question question, boolean correctAnswer, String description) {
+
+	public Suggestion(long id, boolean isChecked, boolean correctAnswer, String description) {
 		super();
 		this.id = id;
+		this.isChecked = isChecked;
 		this.correctAnswer = correctAnswer;
 		this.description = description;
 	}
@@ -67,6 +67,14 @@ public class Suggestion implements Serializable {
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+
+	public boolean isChecked() {
+		return isChecked;
+	}
+
+	public void setChecked(boolean isChecked) {
+		this.isChecked = isChecked;
 	}
 
 }

@@ -18,6 +18,7 @@ export class PassTestComponent implements OnInit {
   test: Test = new Test();
   questions: Question[] = [];
   valCheck;
+  isChecked;
   constructor(private route: ActivatedRoute, private router: Router, private testservice: TestService,) { }
 
   ngOnInit(): void {
@@ -33,6 +34,7 @@ export class PassTestComponent implements OnInit {
   }
   goToNextStep() {
     this.currentStep = this.currentStep + 1;
+    console.log(this.isChecked)
   }
 
 }

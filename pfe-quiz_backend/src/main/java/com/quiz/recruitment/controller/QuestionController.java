@@ -31,6 +31,7 @@ public class QuestionController {
 	// add new Question
 	@PostMapping("/question/add")
 	public Question createQuestion(@RequestBody Question Question) {
+		Question.setFilter(true);
 		return Questionservice.save(Question);
 	}
 
