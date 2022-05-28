@@ -100,12 +100,8 @@ public class TestService {
 		String strDate = dateFormat.format(dateExpiration);  
 		model.put("expirationPeride", strDate);
 		model.put("username", student.getUsername());
-		String password = "";
-		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-		encoder.matches(password, student.getPassword());
-		model.put("password", password);
+		model.put("linkforgetpassword","http://localhost:4200/#/forgetpassword");
 		emailService.sendEmailForTest(mailRequest, model);
-
 		return null;
 	}
 }

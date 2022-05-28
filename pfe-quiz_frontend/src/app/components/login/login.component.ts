@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ConfigService } from '../../service/app.config.service';
 import { AppConfig } from '../../api/appconfig';
 import { Subscription } from 'rxjs';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthenticationService } from 'src/app/service/Auth/authentication.service';
 import { Message } from 'primeng/api';
@@ -39,12 +39,16 @@ export class LoginComponent implements OnInit, OnDestroy {
   remember: boolean = false;
   errorMessage: string;
   msgs: Message[] = [];
-  constructor(private fb: FormBuilder, public configService: ConfigService, private router: Router, private auth: AuthenticationService) {
+  returnUrl;
+  constructor(private route: ActivatedRoute,private fb: FormBuilder, public configService: ConfigService, private router: Router, private auth: AuthenticationService) {
     this.reactiveForm = this.fb.group({
       username: ['', [Validators.required]],
       password: ['', [Validators.required]],
       remember: ['']
     });
+    this.route.queryParams.subscribe(params => {
+      this.returnUrl = params['returnUrl'];
+  });
   }
 
   ngOnInit(): void {
@@ -59,7 +63,12 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.auth.login(this.username, this.password, this.remember).subscribe(
       data => {
         if (data) {
-          this.router.navigate(['user/alluser']);
+          if(this.returnUrl){
+            this.router.navigate([this.returnUrl]);
+          }else{
+            this.router.navigate(['user/alluser']);
+          }
+          
         }
         else {
           this.errorMessage = 'Username or password is incorrect';

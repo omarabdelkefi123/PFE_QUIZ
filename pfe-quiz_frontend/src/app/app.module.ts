@@ -289,6 +289,7 @@ import { InterceptorService } from './service/Auth/interceptor.service';
         AuthenticationService, AuthGuardService,
         CountryService, CustomerService, EventService, IconService, NodeService,
         PhotoService, ProductService, MenuService, ConfigService,DatePipe
+        
     ],
     bootstrap: [AppComponent]
 })

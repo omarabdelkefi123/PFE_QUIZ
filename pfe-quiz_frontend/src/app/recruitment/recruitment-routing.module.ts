@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthGuardService } from '../service/Auth/auth-guard.service';
 import { AddQuestionComponent } from './add-question/add-question.component';
 import { EditQuestionComponent } from './edit-question/edit-question.component';
 import { PassTestComponent } from './pass-test/pass-test.component';
@@ -11,7 +12,7 @@ const routes: Routes = [
   { path: 'add', component: AddQuestionComponent },
   { path: 'edit/:id', component: EditQuestionComponent},
   { path: 'test', component: TestComponent },
-  { path: 'pass-test/:id', component: PassTestComponent},
+  { path: 'pass-test/:id', component: PassTestComponent ,canActivate: [AuthGuardService]},
 ];
 
 @NgModule({

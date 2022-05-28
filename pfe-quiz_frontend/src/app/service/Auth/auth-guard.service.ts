@@ -19,22 +19,7 @@ export class AuthGuardService implements CanActivate {
         const currentUser = this.authenticationService.currentUserValue;
         const requiresLogin = route.data.requiresLogin || false;
         if (currentUser && this.storageservice.getFromCookieOrSession("token")) {
-            if (route.data.privilege[0] == "dash") {
-                return true;
-            }
-            if (route.data.privilege !== undefined) {
-                this.list = route.data.privilege[0];
-                if (this.list.includes(currentUser.role.name)) {
-                    this.result = true;
-                }
-            }
-            if (this.result) {
-                return true;
-            }
-            else {
-                this.router.navigate(['dash']);
-                return false;
-            }
+            return true;
         }
         // not logged in so redirect to login page with the return url
         this.router.navigate(['/login'], { queryParams: { returnUrl: state.url } });
