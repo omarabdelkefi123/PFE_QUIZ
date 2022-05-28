@@ -96,6 +96,11 @@ export class ListUserComponent implements OnInit {
         this.router.navigate(["user/edit", user.id]);
     }
 
+    sendTest(user) {
+        this.router.navigate(["user/send-test", user.id]);
+    }
+
+
     deleteProduct(product: Product) {
         this.deleteProductDialog = true;
         this.product = { ...product };

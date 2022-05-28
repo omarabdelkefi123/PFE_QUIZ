@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.quiz.recruitment.entities.Test;
 import com.quiz.recruitment.service.TestService;
 
@@ -59,5 +61,10 @@ public class TestController {
 	public Test updateTest(@RequestBody Test Test) {
 		return Testservice.save(Test);
 
+	}
+	
+	@PostMapping("/student/sendtest")
+	public Test sendTestToStudent(@RequestBody String str) throws JsonMappingException, JsonProcessingException {
+		return Testservice.sendTestToStudent(str);
 	}
 }

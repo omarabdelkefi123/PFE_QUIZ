@@ -28,4 +28,7 @@ export class TestService {
   updatetest(test: Test): Observable<Object> {
     return this.http.put(`${this.baseUrl}` + `/test/update`, test);
   }
+  sendTestToStudent(student, test, dateExpiration): Observable<Object> {
+    return this.http.post(`${this.baseUrl}` + `/student/sendtest`, { student: student, test: test, dateExpiration: dateExpiration });
+  }
 }

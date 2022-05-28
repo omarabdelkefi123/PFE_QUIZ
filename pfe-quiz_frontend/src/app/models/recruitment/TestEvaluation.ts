@@ -10,5 +10,6 @@ export class TestEvaluation {
     suggestionsAnswered: Suggestion[];
     questionsAnswered: Question[];
     user: User;
-    score: string;  
+    score: string;
+    dateExpiration: Date;
 }

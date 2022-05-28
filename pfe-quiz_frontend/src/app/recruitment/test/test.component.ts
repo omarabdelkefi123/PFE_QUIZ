@@ -5,14 +5,14 @@ import { Test } from 'src/app/models/recruitment/Test';
 import { TestService } from 'src/app/service/recruitment/test.service';
 
 @Component({
-  selector: 'app-test',
-  templateUrl: './test.component.html',
-  providers: [MessageService, ConfirmationService],
-  styleUrls: ['./test.component.scss', '../../../assets/demo/badges.scss']
+    selector: 'app-test',
+    templateUrl: './test.component.html',
+    providers: [MessageService, ConfirmationService],
+    styleUrls: ['./test.component.scss', '../../../assets/demo/badges.scss']
 })
 export class TestComponent implements OnInit {
 
-  test: Test = new Test();
+    test: Test = new Test();
     deleteTestDialog: boolean = false;
 
     deleteTestsDialog: boolean = false;

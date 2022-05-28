@@ -7,6 +7,7 @@ import { SharedModuleModule } from '../shared-module/shared-module.module';
 import { AddUserComponent } from './add-user/add-user.component';
 import { EditUserComponent } from './edit-user/edit-user.component';
 import { ProfileUserComponent } from './profile-user/profile-user.component';
+import { SendTestComponent } from './send-test/send-test.component';
 
 
 
@@ -16,7 +17,8 @@ import { ProfileUserComponent } from './profile-user/profile-user.component';
     ListUserComponent,
     AddUserComponent,
     EditUserComponent,
-    ProfileUserComponent
+    ProfileUserComponent,
+    SendTestComponent
   ],
   imports: [
     CommonModule,

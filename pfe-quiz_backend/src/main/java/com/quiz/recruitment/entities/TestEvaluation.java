@@ -1,6 +1,7 @@
 package com.quiz.recruitment.entities;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -11,6 +12,9 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
 import com.quiz.user.entities.*;
 
 @Entity
@@ -35,8 +39,11 @@ public class TestEvaluation implements Serializable {
 
 	private String score;
 
+	@Temporal(TemporalType.DATE)
+	private Date dateExpiration;
+
 	public TestEvaluation(long id, Test test, List<Suggestion> suggestionsAnswered, List<Question> questionsAnswered,
-			User user, String score) {
+			User user, String score, Date dateExpiration) {
 		super();
 		this.id = id;
 		this.test = test;
@@ -44,6 +51,7 @@ public class TestEvaluation implements Serializable {
 		this.questionsAnswered = questionsAnswered;
 		this.user = user;
 		this.score = score;
+		this.dateExpiration = dateExpiration;
 	}
 
 	public long getId() {
@@ -101,6 +109,14 @@ public class TestEvaluation implements Serializable {
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+
+	public Date getDateExpiration() {
+		return dateExpiration;
+	}
+
+	public void setDateExpiration(Date dateExpiration) {
+		this.dateExpiration = dateExpiration;
 	}
 
 }

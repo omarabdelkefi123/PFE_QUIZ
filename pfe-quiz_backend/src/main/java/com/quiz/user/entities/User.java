@@ -127,7 +127,7 @@ public class User implements Serializable {
 	}
 
 	// don't return password in response
-	@JsonIgnore
+	//@JsonIgnore
 	public String getPassword() {
 		return password;
 	}

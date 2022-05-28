@@ -97,6 +97,43 @@ public class EmailService {
 
 		return response;
 	}
+	
+	public MailResponse sendEmailForTest(MailRequest request, Map<String, Object> model) {
+		MailResponse response = new MailResponse();
+		MimeMessage message = sender.createMimeMessage();
+		try {
+
+			// set mediaType
+			MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
+			// add attachment
+			// helper.addAttachment("logo.png", new ClassPathResource("logo.png"));
+
+			Template t = config.getTemplate("send-email.ftl");
+			String html = FreeMarkerTemplateUtils.processTemplateIntoString(t, model);
+
+			helper.setTo(request.getTo());
+			helper.setText(html, true);
+			helper.setSubject(request.getSubject());
+			helper.setFrom(request.getFrom());
+			System.out.print(request.getFrom());
+			System.out.print(request.getTo());
+			helper.addInline("myLogo", new ClassPathResource("./templates/images/quiz.jpg"));
+			//logo attachement
+			//helper.addInline("myLogo2", new ClassPathResource("./templates/images/favicons.jpg"));
+
+			sender.send(message);
+
+			response.setMessage("mail send to : " + request.getTo());
+			response.setStatus(Boolean.TRUE);
+
+		} catch (MessagingException | IOException | TemplateException e) {
+			response.setMessage("Mail Sending failure : " + e.getMessage());
+			response.setStatus(Boolean.FALSE);
+			System.out.print(e);
+		}
+
+		return response;
+	}
 
 	public MailResponse sendEmailClient(MailRequest request, Map<String, Object> model) {
 		MailResponse response = new MailResponse();
