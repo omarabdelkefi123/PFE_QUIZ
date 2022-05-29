@@ -54,7 +54,7 @@ export class EvaluationTestComponent implements OnInit {
   }
 
   editTestEvaluation(TestEvaluation) {
-    this.router.navigate(["TestEvaluation/edit", TestEvaluation.id]);
+    this.router.navigate(["recruitment/test-evalution/edit", TestEvaluation.id]);
   }
 
 

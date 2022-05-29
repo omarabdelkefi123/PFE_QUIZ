@@ -12,7 +12,7 @@
         <ng-container *ngIf="questions[currentStep-1]?.typeQuestion !== typeQuestionEnum.OTHERS">
             <div class="inputGroup" *ngFor="let suggestion of questions[currentStep-1]?.suggestions; let i = index">
                 <input *ngIf="questions[currentStep-1]?.typeQuestion === typeQuestionEnum.CHECKBOX" 
-                id="option{{i}}" name="option{{i}}" type="checkbox" [(ngModel)]="suggestion.isChecked" />
+                id="option{{i}}" name="option{{i}}" type="checkbox" [(ngModel)]="suggestion.checked" />
                 <label *ngIf="questions[currentStep-1]?.typeQuestion === typeQuestionEnum.CHECKBOX" 
                  for="option{{i}}">{{suggestion.description}}</label>
 
