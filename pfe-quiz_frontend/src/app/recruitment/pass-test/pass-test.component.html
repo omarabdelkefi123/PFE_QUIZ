@@ -19,7 +19,7 @@
                 <input *ngIf="questions[currentStep-1]?.typeQuestion !== typeQuestionEnum.CHECKBOX" 
                  id="radio{{i}}" name="radio" type="radio" />
                 <label *ngIf="questions[currentStep-1]?.typeQuestion !== typeQuestionEnum.CHECKBOX" 
-                class="radio" for="radio{{i}}">Yes</label>
+                class="radio" for="radio{{i}}">{{suggestion.description}}</label>
             </div>
         </ng-container>
 

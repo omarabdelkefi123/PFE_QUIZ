@@ -1,1 +1,97 @@
-<p>evaluation-test works!</p>
+<div class="grid">
+    <div class="col-12">
+        <div class="card">
+            <p-toast></p-toast>
+            <p-toolbar styleClass="mb-4">
+                <ng-template pTemplate="left">
+                    <div class="my-2">
+                        <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success mr-2" (click)="addTestEvaluation()"></button>
+                        <button pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger" (click)="deleteSelectedTestEvaluations()" [disabled]="!selectedTestEvaluations || !selectedTestEvaluations.length"></button>
+                    </div>
+                </ng-template>
+
+                <ng-template pTemplate="right">
+                    <p-fileUpload mode="basic" accept="image/*" [maxFileSize]="1000000" label="Import" chooseLabel="Import" class="mr-2 inline-block"></p-fileUpload>
+                    <button pButton pRipple label="Export" icon="pi pi-upload" class="p-button-help" (click)="dt.exportCSV()"></button>
+                </ng-template>
+            </p-toolbar>
+
+            <p-table #dt [value]="testEvaluations" [columns]="cols" responsiveLayout="scroll" [rows]="10" [globalFilterFields]="['user.fullname','test.name']" [rows]="10" [paginator]="true" [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [(selection)]="selectedTestEvaluations" selectionMode="multiple" [rowHover]="true" dataKey="id">
+                <ng-template pTemplate="caption">
+                    <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
+                        <h5 class="m-0">TestEvaluations</h5>
+                        <span class="block mt-2 md:mt-0 p-input-icon-left">
+                            <i class="pi pi-search"></i>
+                            <input pInputText type="text" style="min-width: 289px;" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Search for (Test,Score,Students)" />
+                        </span>
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th style="width: 3rem">
+                            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                        </th>
+                        <th>test Name</th>
+                        <th pSortableColumn="TestEvaluationname">Student Name <p-sortIcon field="TestEvaluationname"></p-sortIcon></th>
+                        <th pSortableColumn="role.name">Score <p-sortIcon field="role.name"></p-sortIcon></th>
+                        
+                        
+                        <th></th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-TestEvaluation>
+                    <tr>
+                        <td>
+                            <p-tableCheckbox [value]="TestEvaluation"></p-tableCheckbox>
+                        </td>
+                        <td style="min-width: 14rem;">
+							<img  *ngIf=" TestEvaluation.imageprofile" [alt]="TestEvaluation.TestEvaluationname" [src]="'data:image/jpg;base64,' + TestEvaluation.imageprofile.bytes" width="32" style="vertical-align: middle"/>
+							<span class="image-text ml-2">{{TestEvaluation.test.name}}</span>
+						</td>
+                        <td style="min-width: 14rem;">
+                            <span class="p-column-title">TestEvaluationname</span>
+                            {{TestEvaluation.user.fullname}}
+                        </td>
+                        <td style="min-width: 14rem;">
+                            <div *ngIf="TestEvaluation.score" class="surface-300 border-round overflow-hidden w-10rem lg:w-10rem" style="height: 10px;display: inline-block;">
+                                <div class="bg-orange-500 h-full" [ngStyle]="{width: TestEvaluation.score}"></div>
+                            </div>
+                            <span *ngIf="TestEvaluation.score" class="text-orange-500 ml-3 font-medium">%50</span>
+                        </td>
+                        <td>
+                            <div class="flex">
+                                <button pButton pRipple icon="pi pi-pencil"  class="p-button-rounded p-button-success mr-2" (click)="editTestEvaluation(TestEvaluation)"></button>
+                               
+                                <button pButton pRipple icon="pi pi-trash"  class="p-button-rounded p-button-warning" (click)="deleteTestEvaluation(TestEvaluation)"></button>
+                            </div>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+
+    
+
+        <p-dialog [(visible)]="deleteTestEvaluationDialog" header="Confirm" [modal]="true" [style]="{width:'450px'}">
+            <div class="flex align-items-center justify-content-center">
+                <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
+                <span *ngIf="TestEvaluation">Are you sure you want to delete <b>{{TestEvaluation.fullname}}</b>?</span>
+            </div>
+            <ng-template pTemplate="footer">
+                <button pButton pRipple icon="pi pi-times" class="p-button-text" label="No" (click)="deleteTestEvaluationDialog = false"></button>
+                <button pButton pRipple icon="pi pi-check" class="p-button-text" label="Yes" (click)="confirmDeleteTestEvaluation()"></button>
+            </ng-template>
+        </p-dialog>
+
+        <p-dialog [(visible)]="deleteTestEvaluationsDialog" header="Confirm" [modal]="true" [style]="{width:'450px'}">
+            <div class="flex align-items-center justify-content-center">
+                <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
+                <span>Are you sure you want to delete selected TestEvaluations?</span>
+            </div>
+            <ng-template pTemplate="footer">
+                <button pButton pRipple icon="pi pi-times" class="p-button-text" label="No" (click)="deleteTestEvaluationsDialog = false"></button>
+                <button pButton pRipple icon="pi pi-check" class="p-button-text" label="Yes" (click)="confirmDeleteTestEvaluationsSelected()"></button>
+            </ng-template>
+        </p-dialog>
+    </div>
+</div>

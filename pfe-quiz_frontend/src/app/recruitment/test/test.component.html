@@ -21,7 +21,7 @@
 						[disabled]="!selectedTests || !selectedTests.length"></button>
 				</ng-template>
 			</p-toolbar>
-			<p-table #dt [value]="tests" [(selection)]="selectedTests" dataKey="id" selectionMode="multiple"
+			<p-table #dt [value]="tests" [globalFilterFields]="['user.fullname','test.name']" [rows]="10" [paginator]="true" [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [(selection)]="selectedTests" dataKey="id" selectionMode="multiple"
 				[rowHover]="true" dataKey="id" [globalFilterFields]="['name']" [expandedRowKeys]="expandedRows"
 				responsiveLayout="scroll">
 				<ng-template pTemplate="caption">

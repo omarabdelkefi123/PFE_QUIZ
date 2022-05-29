@@ -60,6 +60,7 @@ export class PassTestComponent implements OnInit {
 
       });
       this.testEvaluation.questionsAnswered = this.questions;
+      this.testEvaluation.test = this.test;
       console.log(this.testEvaluation);
       this.testEvalutionService.createTestEvaluation(this.testEvaluation).subscribe(data => {
         console.log("after calling api success" + data)

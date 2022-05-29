@@ -32,13 +32,14 @@ public class Question implements Serializable {
 	private TypeQuestionEnum typeQuestion;
 
 	private String question;
-	
+
 	private long duration;
-	
+
 	private String answered;
-	
+
 	private boolean filter;
 
+	private String score;
 
 	@OneToMany(cascade = CascadeType.ALL)
 	private List<Suggestion> suggestions;
@@ -48,11 +49,8 @@ public class Question implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 
-	
-
-
 	public Question(long id, TypeQuestionEnum typeQuestion, String question, long duration, String answered,
-			boolean filter, List<Suggestion> suggestions) {
+			boolean filter, String score, List<Suggestion> suggestions) {
 		super();
 		this.id = id;
 		this.typeQuestion = typeQuestion;
@@ -60,11 +58,17 @@ public class Question implements Serializable {
 		this.duration = duration;
 		this.answered = answered;
 		this.filter = filter;
+		this.score = score;
 		this.suggestions = suggestions;
 	}
 
+	public String getScore() {
+		return score;
+	}
 
-
+	public void setScore(String score) {
+		this.score = score;
+	}
 
 	public TypeQuestionEnum getTypeQuestion() {
 		return typeQuestion;
@@ -102,46 +106,28 @@ public class Question implements Serializable {
 		return serialVersionUID;
 	}
 
-
-
 	public long getDuration() {
 		return duration;
 	}
-
-
 
 	public void setDuration(long duration) {
 		this.duration = duration;
 	}
 
-
-
-
 	public String getAnswered() {
 		return answered;
 	}
-
-
-
 
 	public void setAnswered(String answered) {
 		this.answered = answered;
 	}
 
-
-
-
 	public boolean isFilter() {
 		return filter;
 	}
 
-
-
-
 	public void setFilter(boolean filter) {
 		this.filter = filter;
 	}
-	
-	
 
 }
