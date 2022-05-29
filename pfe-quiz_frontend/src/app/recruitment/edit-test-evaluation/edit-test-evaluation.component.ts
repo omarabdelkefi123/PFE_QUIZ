@@ -38,16 +38,45 @@ export class EditTestEvaluationComponent implements OnInit {
   getScoreQuetion(quetion: Question) {
     //let suggetions= quetion.suggestions.filter(val => val);
     let score = 0;
-    let length = quetion.suggestions.length;
-    for (var j = 0; j < quetion.suggestions.length; j++) {
+    let length = quetion.suggestions?.length;
+    for (var j = 0; j < quetion.suggestions?.length; j++) {
       if (quetion.suggestions[j].correctAnswer === quetion.suggestions[j].checked) {
         score = score + 1;
       }
     }
     return (score / length) *100;
   }
-
+  getScoreResultQuetion(quetion){
+    return (this.getScoreQuetion(quetion)/100) * quetion.score;
+  }
   editTestEvaluation() {
 
+  }
+
+
+  /*****************test           */
+  getSumScoreQuetions(){
+    let score = 0;
+    for (var j = 0; j < this.TestEvaluation.questionsAnswered?.length; j++) {
+      score=+this.TestEvaluation.questionsAnswered[j].score;
+    }
+    return score;
+  }
+  getSumScoreAsweredQuetions(){
+    let score = 0;
+    for (var j = 0; j < this.TestEvaluation.questionsAnswered?.length; j++) {
+      if(this.getScoreResultQuetion(this.TestEvaluation.questionsAnswered[j])){
+        console.log(this.getScoreResultQuetion(this.TestEvaluation.questionsAnswered[j]))
+        score=+this.getScoreResultQuetion(this.TestEvaluation.questionsAnswered[j]);
+      }
+      
+    }
+    return score;
+  }
+
+  getScoreTest(){
+    var x=this.getSumScoreAsweredQuetions();
+    var y=this.getSumScoreQuetions();
+   return (this.getSumScoreAsweredQuetions()/ this.getSumScoreQuetions())*100;
   }
 }

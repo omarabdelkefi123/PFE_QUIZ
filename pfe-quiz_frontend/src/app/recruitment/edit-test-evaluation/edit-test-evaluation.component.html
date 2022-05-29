@@ -11,7 +11,7 @@
                     <div class="field col-12 md:col-7" style="margin-bottom: 0px;padding-bottom: 0px;">
                         <h5 style="font-size: 2rem;
                         font-weight: 700;color: #a47d06;"> Score Question
-                        <span>({{getScoreQuetion(quetion) | number : '1.2'}}/5)</span>
+                        <span>({{getScoreResultQuetion(quetion) | number : '1.2'}}/{{quetion.score}})</span>
                     </h5>
                     </div>
 
@@ -44,7 +44,7 @@
     </div>
 
     <h5>Score Test</h5>
-    <p-knob [(ngModel)]="valueKnob" valueTemplate="{value}%" [step]="10" [min]="-50" [max]="50"></p-knob>
+    <p-knob [(ngModel)]="valueKnob" valueTemplate="{{getScoreTest()}}%" [step]="10" [min]="-50" [max]="50"></p-knob>
 
     <button pButton pRipple type="button" (click)="editTestEvaluation()" label="Edit"
         class="p-button-secondary mr-2 mb-2" style="margin-top: 27px;"></button>

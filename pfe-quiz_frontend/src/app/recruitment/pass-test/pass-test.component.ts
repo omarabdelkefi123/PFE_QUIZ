@@ -64,6 +64,7 @@ export class PassTestComponent implements OnInit {
       console.log(this.testEvaluation);
       this.testEvalutionService.createTestEvaluation(this.testEvaluation).subscribe(data => {
         console.log("after calling api success" + data)
+        this.router.navigate(["recruitment/test-evalution"]);
       });
 
     }

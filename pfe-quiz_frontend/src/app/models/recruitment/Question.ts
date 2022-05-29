@@ -7,6 +7,7 @@ export class Question {
     typeQuestion: TypeQuestionEnum;
     duration: number;
     answered: string;
+    score: string;
     filter: boolean;
     suggestions: Suggestion[];
 }
