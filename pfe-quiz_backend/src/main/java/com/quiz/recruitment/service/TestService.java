@@ -71,7 +71,7 @@ public class TestService {
 		User student = mapper.convertValue(node.get("student"), User.class);
 		Date dateExpiration = mapper.convertValue(node.get("dateExpiration"), Date.class);
 		sendEmailForTest(test, student, dateExpiration);
-		return null;
+		return test;
 	}
 
 	public String sendEmailForTest(Test test, User student, Date dateExpiration) {

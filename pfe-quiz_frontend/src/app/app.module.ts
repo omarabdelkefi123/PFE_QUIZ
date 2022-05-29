@@ -280,6 +280,7 @@ import { InterceptorService } from './service/Auth/interceptor.service';
         AccessComponent,
         ForgetPasswordComponent,
         NewPasswordComponent,
+        
     ],
     providers: [
         { provide: LocationStrategy, useClass: HashLocationStrategy },
