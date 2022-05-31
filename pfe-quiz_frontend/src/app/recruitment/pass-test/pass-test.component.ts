@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Question } from 'src/app/models/recruitment/Question';
+import { Suggestion } from 'src/app/models/recruitment/Suggestion';
 import { Test } from 'src/app/models/recruitment/Test';
 import { TestEvaluation } from 'src/app/models/recruitment/TestEvaluation';
 import { TypeQuestionEnum } from 'src/app/models/recruitment/typeQuestionEnum';
@@ -68,6 +69,15 @@ export class PassTestComponent implements OnInit {
       });
 
     }
+  }
+  checkSuggestion(suggestion: Suggestion, suggestions) {
+    
+    for (let i = 0; i < suggestions.length; i++) {
+      console.log ("Block statement execution no." + i)
+      suggestions[i].checked = false;
+    }
+    suggestion.checked=true;
+    console.log(suggestions)
   }
 
 }

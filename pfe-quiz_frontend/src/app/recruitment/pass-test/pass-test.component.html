@@ -11,14 +11,16 @@
         <h2 style="margin-bottom: 30px;">{{questions[currentStep-1]?.question}}</h2>
         <ng-container *ngIf="questions[currentStep-1]?.typeQuestion !== typeQuestionEnum.OTHERS">
             <div class="inputGroup" *ngFor="let suggestion of questions[currentStep-1]?.suggestions; let i = index">
-                <input *ngIf="questions[currentStep-1]?.typeQuestion === typeQuestionEnum.CHECKBOX" 
+                <input *ngIf="questions[currentStep-1]?.typeQuestion !== typeQuestionEnum.CHECKBOX" 
                 id="option{{i}}" name="option{{i}}" type="checkbox" [(ngModel)]="suggestion.checked" />
-                <label *ngIf="questions[currentStep-1]?.typeQuestion === typeQuestionEnum.CHECKBOX" 
+                <label *ngIf="questions[currentStep-1]?.typeQuestion !== typeQuestionEnum.CHECKBOX" 
                  for="option{{i}}">{{suggestion.description}}</label>
 
-                <input *ngIf="questions[currentStep-1]?.typeQuestion !== typeQuestionEnum.CHECKBOX" 
-                 id="radio{{i}}" name="radio" type="radio" />
-                <label *ngIf="questions[currentStep-1]?.typeQuestion !== typeQuestionEnum.CHECKBOX" 
+                <input *ngIf="questions[currentStep-1]?.typeQuestion === typeQuestionEnum.CHECKBOX" 
+                 id="radio{{i}}" name="radio" type="radio" 
+                 [value]="suggestion.checked"
+                 (change)="checkSuggestion(suggestion,questions[currentStep-1]?.suggestions)"/>
+                <label *ngIf="questions[currentStep-1]?.typeQuestion === typeQuestionEnum.CHECKBOX" 
                 class="radio" for="radio{{i}}">{{suggestion.description}}</label>
             </div>
         </ng-container>
