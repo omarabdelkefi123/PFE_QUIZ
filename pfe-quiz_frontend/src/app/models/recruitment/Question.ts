@@ -10,4 +10,6 @@ export class Question {
     score: string;
     filter: boolean;
     suggestions: Suggestion[];
+    scoreinput: string;
+    scoreResult: string;
 }

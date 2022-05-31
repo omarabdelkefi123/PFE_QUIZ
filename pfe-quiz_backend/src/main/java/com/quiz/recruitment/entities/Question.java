@@ -41,6 +41,10 @@ public class Question implements Serializable {
 
 	private String score;
 
+	private String scoreinput;
+	
+	private String scoreResult;
+
 	@OneToMany(cascade = CascadeType.ALL)
 	private List<Suggestion> suggestions;
 
@@ -48,9 +52,10 @@ public class Question implements Serializable {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-
+	
+	
 	public Question(long id, TypeQuestionEnum typeQuestion, String question, long duration, String answered,
-			boolean filter, String score, List<Suggestion> suggestions) {
+			boolean filter, String score, String scoreinput, String scoreResult, List<Suggestion> suggestions) {
 		super();
 		this.id = id;
 		this.typeQuestion = typeQuestion;
@@ -59,8 +64,11 @@ public class Question implements Serializable {
 		this.answered = answered;
 		this.filter = filter;
 		this.score = score;
+		this.scoreinput = scoreinput;
+		this.scoreResult = scoreResult;
 		this.suggestions = suggestions;
 	}
+
 
 	public String getScore() {
 		return score;
@@ -128,6 +136,24 @@ public class Question implements Serializable {
 
 	public void setFilter(boolean filter) {
 		this.filter = filter;
+	}
+
+	public String getScoreinput() {
+		return scoreinput;
+	}
+
+	public void setScoreinput(String scoreinput) {
+		this.scoreinput = scoreinput;
+	}
+
+
+	public String getScoreResult() {
+		return scoreResult;
+	}
+
+
+	public void setScoreResult(String scoreResult) {
+		this.scoreResult = scoreResult;
 	}
 
 }

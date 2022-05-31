@@ -28,17 +28,23 @@ public class Test implements Serializable {
 
 	private String name;
 
+	private String scoreResult;
 	public Test() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Test(long id, List<Question> questions, String name) {
+	
+
+	public Test(long id, List<Question> questions, String name, String scoreResult) {
 		super();
 		this.id = id;
 		this.questions = questions;
 		this.name = name;
+		this.scoreResult = scoreResult;
 	}
+
+
 
 	public long getId() {
 		return id;
@@ -66,6 +72,18 @@ public class Test implements Serializable {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+
+
+	public String getScoreResult() {
+		return scoreResult;
+	}
+
+
+
+	public void setScoreResult(String scoreResult) {
+		this.scoreResult = scoreResult;
 	}
 
 }

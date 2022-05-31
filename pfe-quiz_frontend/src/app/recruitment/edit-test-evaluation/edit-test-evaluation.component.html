@@ -7,44 +7,71 @@
         <div class="field col-12 md:col-11">
             <p-panel header="{{quetion.question}}" [toggleable]="true" class="line-height-3 m-2"
                 *ngFor="let quetion of TestEvaluation.questionsAnswered; let i = index">
-                <div class="row" style="display: flex;">
-                    <div class="field col-12 md:col-7" style="margin-bottom: 0px;padding-bottom: 0px;">
-                        <h5 style="font-size: 2rem;
-                        font-weight: 700;color: #a47d06;"> Score Question
-                        <span>({{getScoreResultQuetion(quetion) | number : '1.2'}}/{{quetion.score}})</span>
-                    </h5>
-                    </div>
-
-                    <div class="field col-12 md:col-5">
-                        <p-progressBar [value]="getScoreQuetion(quetion) | number : '1.2'" [showValue]="true"></p-progressBar>
-                    </div>
-                </div>
-
-
-                <ul class="list-none p-0 m-0">
-                    <li class="flex flex-column md:flex-row md:align-items-center md:justify-content-between mb-4"
-                        *ngFor="let suggestion of quetion.suggestions; let i = index">
-                        <div>
-                            <span class="text-900 font-medium mr-2 mb-1 md:mb-0">{{suggestion.description}}</span>
-                            <div class="mt-1 text-600" *ngIf="suggestion.checked">this suggetion is checked</div>
-                            <div class="mt-1 text-600" *ngIf="!suggestion.checked">this suggetion is not checked</div>
+                <ng-cotainer *ngIf="quetion.typeQuestion !== typeQuestionEnum.OTHERS">
+                    <div class="row" style="display: flex;">
+                        <div class="field col-12 md:col-7" style="margin-bottom: 0px;padding-bottom: 0px;">
+                            <h5 style="font-size: 2rem;
+                            font-weight: 700;color: #a47d06;"> Score Question
+                                <span>({{getScoreResultQuetion(quetion) | number : '1.2'}}/{{quetion.score}})</span>
+                            </h5>
                         </div>
-                        <div class="mt-2 md:mt-0 flex align-items-center">
-                            <button *ngIf="correctChecked(suggestion)" pButton pRipple type="button" icon="pi pi-check"
-                                class="p-button-rounded p-button-success mr-2 mb-2"></button>
-                            <button *ngIf="!correctChecked(suggestion)" pButton pRipple type="button" icon="pi pi-times"
-                                class="p-button-rounded p-button-danger mr-2 mb-2"></button>
-                        </div>
-                    </li>
 
-                </ul>
+                        <div class="field col-12 md:col-5">
+                            <p-progressBar [value]="getScoreQuetion(quetion) | number : '1.2'" [showValue]="true">
+                            </p-progressBar>
+                        </div>
+                    </div>
+                    <ul class="list-none p-0 m-0">
+                        <li class="flex flex-column md:flex-row md:align-items-center md:justify-content-between mb-4"
+                            *ngFor="let suggestion of quetion.suggestions; let i = index">
+                            <div>
+                                <span class="text-900 font-medium mr-2 mb-1 md:mb-0">{{suggestion.description}}</span>
+                                <div class="mt-1 text-600" *ngIf="suggestion.checked">this suggetion is checked</div>
+                                <div class="mt-1 text-600" *ngIf="!suggestion.checked">this suggetion is not checked
+                                </div>
+                            </div>
+                            <div class="mt-2 md:mt-0 flex align-items-center">
+                                <button *ngIf="correctChecked(suggestion)" pButton pRipple type="button"
+                                    icon="pi pi-check" class="p-button-rounded p-button-success mr-2 mb-2"></button>
+                                <button *ngIf="!correctChecked(suggestion)" pButton pRipple type="button"
+                                    icon="pi pi-times" class="p-button-rounded p-button-danger mr-2 mb-2"></button>
+                            </div>
+                        </li>
+
+                    </ul>
+                </ng-cotainer>
+                <ng-cotainer *ngIf="quetion.typeQuestion === typeQuestionEnum.OTHERS">
+                    <h5 style="font-size: 1rem;
+                            font-weight: 700;color: #a47d06;">{{quetion.answered}}</h5>
+
+                    <p-divider layout="horizontal" align="center">
+                        <span class="p-tag">score quertion : {{quetion.score}}</span>
+                    </p-divider>
+                    <ng-cotainer>
+
+                        <span class="p-float-label">
+                            <input type="text" id="inputtext" style="width: 196px;margin-bottom: 20px;" pInputText
+                                name="firstname" [(ngModel)]="quetion.scoreinput">
+                        </span>
+                        <h5 style="font-size: 2rem; 
+                    font-weight: 700;color: #a47d06;" *ngIf="!hideButton"> Score Question
+                            <span>({{quetion.scoreinput | number : '1.2'}}/{{quetion.score}})</span>
+                        </h5>
+                        <button *ngIf="hideButton" pButton pRipple type="button" style="width: 148px;"
+                            (click)="addSoreQuetionInput(quetion)" label="Add Score"
+                            class="p-button-secondary mr-2 mb-2"></button>
+                    </ng-cotainer>
+
+                </ng-cotainer>
+
             </p-panel>
         </div>
 
     </div>
 
     <h5>Score Test</h5>
-    <p-knob [(ngModel)]="valueKnob" valueTemplate="{{getScoreTest()}}%" [step]="10" [min]="-50" [max]="50"></p-knob>
+    <p-knob [(ngModel)]="valueKnob" valueTemplate="{{getScoreTest() + getInpuScore() | number : '1.2'}}%" [step]="10"
+        [min]="-50" [max]="50"></p-knob>
 
     <button pButton pRipple type="button" (click)="editTestEvaluation()" label="Edit"
         class="p-button-secondary mr-2 mb-2" style="margin-top: 27px;"></button>
