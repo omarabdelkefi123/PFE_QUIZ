@@ -54,10 +54,10 @@
                                 name="firstname" [(ngModel)]="quetion.scoreinput">
                         </span>
                         <h5 style="font-size: 2rem; 
-                    font-weight: 700;color: #a47d06;" *ngIf="!hideButton"> Score Question
+                    font-weight: 700;color: #a47d06;" *ngIf="quetion.scoreResult"> Score Question
                             <span>({{quetion.scoreinput | number : '1.2'}}/{{quetion.score}})</span>
                         </h5>
-                        <button *ngIf="hideButton" pButton pRipple type="button" style="width: 148px;"
+                        <button *ngIf="!quetion.scoreResult" pButton pRipple type="button" style="width: 148px;"
                             (click)="addSoreQuetionInput(quetion)" label="Add Score"
                             class="p-button-secondary mr-2 mb-2"></button>
                     </ng-cotainer>
@@ -70,7 +70,7 @@
     </div>
 
     <h5>Score Test</h5>
-    <p-knob [(ngModel)]="valueKnob" valueTemplate="{{getScoreTest() + getInpuScore() | number : '1.2'}}%" [step]="10"
+    <p-knob [(ngModel)]="valueKnob" valueTemplate="{{getScoreTest() | number : '1.2'}}%" [step]="10"
         [min]="-50" [max]="50"></p-knob>
 
     <button pButton pRipple type="button" (click)="editTestEvaluation()" label="Edit"

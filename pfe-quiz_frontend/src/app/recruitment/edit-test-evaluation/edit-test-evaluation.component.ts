@@ -18,7 +18,6 @@ export class EditTestEvaluationComponent implements OnInit {
   i: number;
   TestEvaluation = new TestEvaluation();
   valueKnob = 15;
-  hideButton: boolean = true;
   constructor(private messageService: MessageService, private route: ActivatedRoute,
     private router: Router, private administratorservice: TestEvaluationService,) { }
 
@@ -50,12 +49,13 @@ export class EditTestEvaluationComponent implements OnInit {
   }
   getScoreResultQuetion(quetion) {
     quetion.scoreResult = ((this.getScoreQuetion(quetion) / 100) * quetion.score).toString();
+    console.log("question suggetion result " + quetion.scoreResult)
     return (this.getScoreQuetion(quetion) / 100) * quetion.score;
   }
   editTestEvaluation() {
-    this.TestEvaluation.test.scoreResult = (this.getScoreTest() + this.getInpuScore()).toString();
+    this.TestEvaluation.test.scoreResult = (this.getScoreTest()).toString();
     this.administratorservice.updateTestEvaluation(this.TestEvaluation).subscribe(data => {
-      console.log(this.TestEvaluation)
+      
     });
   }
 
@@ -66,40 +66,34 @@ export class EditTestEvaluationComponent implements OnInit {
     for (var j = 0; j < this.TestEvaluation.questionsAnswered?.length; j++) {
       score = +this.TestEvaluation.questionsAnswered[j].score + score;
     }
-    console.log(score)
     return score;
   }
-  getSumScoreAsweredQuetions() {
-    let score = 0;
-    for (var j = 0; j < this.TestEvaluation.questionsAnswered?.length; j++) {
-      if (this.getScoreResultQuetion(this.TestEvaluation.questionsAnswered[j])) {
-        //console.log(this.getScoreResultQuetion(this.TestEvaluation.questionsAnswered[j]))
-        score = +this.getScoreResultQuetion(this.TestEvaluation.questionsAnswered[j]);
-      }
-
-    }
-    return score;
-  }
-  inputScore;
-  y;
+  
   getScoreTest() {
     var x = this.getSumScoreAsweredQuetions();
     var y = this.getSumScoreQuetions();
     return (this.getSumScoreAsweredQuetions() / this.getSumScoreQuetions()) * 100;
   }
+  getSumScoreAsweredQuetions() {
+    let score = 0;
+    for (var j = 0; j < this.TestEvaluation.questionsAnswered?.length; j++) {
+      score = +this.TestEvaluation.questionsAnswered[j].scoreResult + score;
+    }
+    return score;
+  }
   public get typeQuestionEnum() {
     return TypeQuestionEnum;
   }
   addSoreQuetionInput(quetion: Question) {
-    this.inputScore = (+quetion.scoreinput / this.getSumScoreQuetions()) * 100;
-    this.hideButton = false;
+    quetion.scoreResult = quetion.scoreinput;
+    console.log("question input result " + quetion.scoreResult)
   }
-  getInpuScore() {
+ /* getInpuScore() {
     console.log(this.inputScore)
     if (this.inputScore) {
       return this.inputScore;
     } else {
       return 0;
     }
-  }
+  }*/
 }
