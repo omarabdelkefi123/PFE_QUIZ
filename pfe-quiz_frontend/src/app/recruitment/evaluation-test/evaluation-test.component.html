@@ -10,10 +10,7 @@
                     </div>
                 </ng-template>
 
-                <ng-template pTemplate="right">
-                    <p-fileUpload mode="basic" accept="image/*" [maxFileSize]="1000000" label="Import" chooseLabel="Import" class="mr-2 inline-block"></p-fileUpload>
-                    <button pButton pRipple label="Export" icon="pi pi-upload" class="p-button-help" (click)="dt.exportCSV()"></button>
-                </ng-template>
+               
             </p-toolbar>
 
             <p-table #dt [value]="testEvaluations" [columns]="cols" responsiveLayout="scroll" [rows]="10" [globalFilterFields]="['user.fullname','test.name']" [rows]="10" [paginator]="true" [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [(selection)]="selectedTestEvaluations" selectionMode="multiple" [rowHover]="true" dataKey="id">
@@ -60,9 +57,9 @@
                         </td>
                         <td>
                             <div class="flex">
-                                <button pButton pRipple icon="pi pi-pencil"  class="p-button-rounded p-button-success mr-2" (click)="editTestEvaluation(TestEvaluation)"></button>
-                                <button pButton pRipple icon="pi pi-eye"  class="p-button-rounded p-button-success mr-2" (click)="viewTestEvaluation(TestEvaluation)"></button>
-                                <button pButton pRipple icon="pi pi-trash"  class="p-button-rounded p-button-warning" (click)="deleteTestEvaluation(TestEvaluation)"></button>
+                                <button pButton pRipple icon="pi pi-pencil" *ngIf="userconnecte.role.name !== 'Etudiant'"  class="p-button-rounded p-button-success mr-2" (click)="editTestEvaluation(TestEvaluation)"></button>
+                                <button pButton pRipple icon="pi pi-eye" *ngIf="TestEvaluation.score" class="p-button-rounded p-button-success mr-2" (click)="viewTestEvaluation(TestEvaluation)"></button>
+                                <button pButton pRipple icon="pi pi-trash" *ngIf="userconnecte.role.name !== 'Etudiant'" class="p-button-rounded p-button-warning" (click)="deleteTestEvaluation(TestEvaluation)"></button>
                             </div>
                         </td>
                     </tr>

@@ -66,7 +66,7 @@ export class LoginComponent implements OnInit, OnDestroy {
           if(this.returnUrl){
             this.router.navigate([this.returnUrl]);
           }else{
-            this.router.navigate(['user/alluser']);
+            this.router.navigate(['recruitment/test-evalution']);
           }
           
         }

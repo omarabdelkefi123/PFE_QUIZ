@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { TestEvaluation } from 'src/app/models/recruitment/TestEvaluation';
+import { User } from 'src/app/models/user/User';
+import { StorageService } from 'src/app/service/Auth/storage.service';
 import { TestEvaluationService } from 'src/app/service/recruitment/testevaluation.service copy';
 
 
@@ -32,10 +34,12 @@ export class EvaluationTestComponent implements OnInit {
   isTableHasData = true;
 
   testEvaluations: TestEvaluation[];
+  userconnecte: User;
 
-
-  constructor(private router: Router, private messageService: MessageService,
-    private confirmationService: ConfirmationService, private testEvaluationservice: TestEvaluationService,) { }
+  constructor(private storageservice: StorageService,private router: Router, private messageService: MessageService,
+    private confirmationService: ConfirmationService, private testEvaluationservice: TestEvaluationService,) {
+      this.userconnecte = this.storageservice.getuserfromcookieorsession();
+     }
 
   ngOnInit(): void {
     this.reloadData();

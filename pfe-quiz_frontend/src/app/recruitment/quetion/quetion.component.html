@@ -14,9 +14,8 @@
 				</ng-template>
 
 				<ng-template pTemplate="right">
-					<p-fileUpload mode="basic" accept="image/*" [maxFileSize]="1000000" label="Import"
-						chooseLabel="Import" class="mr-2 inline-block"></p-fileUpload>
-					<button pButton pRipple label="create Test" icon="pi pi-upload" class="p-button-help"
+					
+					<button pButton pRipple label="create Test" icon="pi pi-plus" class="p-button-help"
 						(click)="createSelectedTests()"
 						[disabled]="!selectedQuestions || !selectedQuestions.length"></button>
 				</ng-template>

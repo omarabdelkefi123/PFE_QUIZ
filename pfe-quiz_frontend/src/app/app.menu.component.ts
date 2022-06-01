@@ -34,12 +34,12 @@ export class AppMenuComponent implements OnInit {
                 ]
             },
             {
-                label: 'UI Components',
+                label: 'Quiz',
                 items: [
-                    {label: 'USERS', icon: 'pi pi-fw pi-id-card', routerLink: ['/user/alluser']},
-                    {label: 'Question', icon: 'pi pi-fw pi-check-square', routerLink: ['/recruitment/quetion']},
-                    {label: 'Test', icon: 'pi pi-fw pi-bookmark', routerLink: ['/recruitment/test']},
-                    {label: 'Evaluation tests', icon: 'pi pi-fw pi-exclamation-circle', routerLink: ['/recruitment/test-evalution']},
+                    {label: 'USERS', icon: 'pi pi-fw pi-id-card', routerLink: ['/user/alluser'] ,role: "admin"},
+                    {label: 'Question', icon: 'pi pi-fw pi-check-square', routerLink: ['/recruitment/quetion'],role: "admin"},
+                    {label: 'Test', icon: 'pi pi-fw pi-bookmark', routerLink: ['/recruitment/test'], role: "admin"},
+                    {label: 'Evaluation tests', icon: 'pi pi-fw pi-exclamation-circle', routerLink: ['/recruitment/test-evalution'] ,role: "all"},
                    
                 ]
             },
