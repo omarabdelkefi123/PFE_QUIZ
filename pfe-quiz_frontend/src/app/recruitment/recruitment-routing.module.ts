@@ -8,6 +8,7 @@ import { EvaluationTestComponent } from './evaluation-test/evaluation-test.compo
 import { PassTestComponent } from './pass-test/pass-test.component';
 import { QuetionComponent } from './quetion/quetion.component';
 import { TestComponent } from './test/test.component';
+import { ViewTestEaluationComponent } from './view-test-ealuation/view-test-ealuation.component';
 
 const routes: Routes = [
   { path: 'quetion', component: QuetionComponent },
@@ -17,6 +18,7 @@ const routes: Routes = [
   { path: 'pass-test/:id', component: PassTestComponent ,canActivate: [AuthGuardService]},
   { path: 'test-evalution', component: EvaluationTestComponent },
   { path: 'test-evalution/edit/:id', component: EditTestEvaluationComponent },
+  { path: 'consult-test-evalution/:id', component: ViewTestEaluationComponent },
 ];
 
 @NgModule({

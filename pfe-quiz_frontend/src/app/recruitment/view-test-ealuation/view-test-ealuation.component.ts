@@ -8,12 +8,13 @@ import { TestEvaluationService } from 'src/app/service/recruitment/testevaluatio
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { TypeQuestionEnum } from 'src/app/models/recruitment/typeQuestionEnum';
 @Component({
-  selector: 'app-edit-test-evaluation',
-  templateUrl: './edit-test-evaluation.component.html',
+  selector: 'app-view-test-ealuation',
   providers: [MessageService, ConfirmationService],
-  styleUrls: ['./edit-test-evaluation.component.scss', '../../../assets/demo/badges.scss']
+  templateUrl: './view-test-ealuation.component.html',
+  styleUrls: ['./view-test-ealuation.component.scss', '../../../assets/demo/badges.scss']
 })
-export class EditTestEvaluationComponent implements OnInit {
+export class ViewTestEaluationComponent implements OnInit {
+
   id: number;
   i: number;
   TestEvaluation = new TestEvaluation();
@@ -88,12 +89,5 @@ export class EditTestEvaluationComponent implements OnInit {
     quetion.scoreResult = quetion.scoreinput;
     console.log("question input result " + quetion.scoreResult)
   }
- /* getInpuScore() {
-    console.log(this.inputScore)
-    if (this.inputScore) {
-      return this.inputScore;
-    } else {
-      return 0;
-    }
-  }*/
+
 }

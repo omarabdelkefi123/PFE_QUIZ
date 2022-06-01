@@ -9,6 +9,7 @@ import { TestComponent } from './test/test.component';
 import { PassTestComponent } from './pass-test/pass-test.component';
 import { EvaluationTestComponent } from './evaluation-test/evaluation-test.component';
 import { EditTestEvaluationComponent } from './edit-test-evaluation/edit-test-evaluation.component';
+import { ViewTestEaluationComponent } from './view-test-ealuation/view-test-ealuation.component';
 
 
 
@@ -20,7 +21,7 @@ import { EditTestEvaluationComponent } from './edit-test-evaluation/edit-test-ev
     EditQuestionComponent,
     TestComponent,
     PassTestComponent,
-    PassTestComponent,EvaluationTestComponent, EditTestEvaluationComponent
+    PassTestComponent,EvaluationTestComponent, EditTestEvaluationComponent, ViewTestEaluationComponent
   ],
   imports: [
     CommonModule,
