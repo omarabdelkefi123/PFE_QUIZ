@@ -53,12 +53,6 @@ export class ViewTestEaluationComponent implements OnInit {
     console.log("question suggetion result " + quetion.scoreResult)
     return (this.getScoreQuetion(quetion) / 100) * quetion.score;
   }
-  editTestEvaluation() {
-    this.TestEvaluation.score = (this.getScoreTest()).toString();
-    this.administratorservice.updateTestEvaluation(this.TestEvaluation).subscribe(data => {
-      this.router.navigate(["/recruitment/test-evalution"]);
-    });
-  }
 
 
   /*****************test           */

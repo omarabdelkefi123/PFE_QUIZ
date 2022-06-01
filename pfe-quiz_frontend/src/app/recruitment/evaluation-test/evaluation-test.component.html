@@ -56,7 +56,7 @@
                             <div *ngIf="TestEvaluation.score" class="surface-300 border-round overflow-hidden w-10rem lg:w-10rem" style="height: 10px;display: inline-block;">
                                 <div class="bg-orange-500 h-full" [ngStyle]="{width: TestEvaluation.score}"></div>
                             </div>
-                            <span *ngIf="TestEvaluation.score" class="text-orange-500 ml-3 font-medium">%50</span>
+                            <span *ngIf="TestEvaluation.score" class="text-orange-500 ml-3 font-medium">%{{TestEvaluation.score | number : '1.2'}}</span>
                         </td>
                         <td>
                             <div class="flex">
