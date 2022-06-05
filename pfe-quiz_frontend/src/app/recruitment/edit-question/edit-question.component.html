@@ -3,7 +3,13 @@
     <h5>Question</h5>
     <textarea pInputTextarea placeholder=" Description of Your Question" [(ngModel)]="question.question" autoResize
         rows="4" cols="110"></textarea>
+    <div class="field col-12 md:col-6">
+        <span class="p-float-label">
+            <input type="text" id="inputtext" pInputText name="firstname" [(ngModel)]="question.score">
+            <label for="inputtext">Score</label>
+        </span>
 
+    </div>
 
     <h5>Type Response</h5>
     <div class="grid listcheckbox">
