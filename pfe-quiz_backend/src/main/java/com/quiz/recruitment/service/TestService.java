@@ -86,7 +86,7 @@ public class TestService {
 		mailRequest.setFrom("testtest130138@gmail.com");
 
 		mailRequest.setSubject("Technical assessment");
-		mailRequest.setTo("testtest130138@gmail.com");
+		mailRequest.setTo(student.getUsername());
 		mailRequest.setName(student.getFullname());
 		// resetUrland logInUrl location and ....==>variables pass to template
 

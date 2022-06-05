@@ -153,7 +153,7 @@ export class AppMenuitemComponent implements OnInit, OnDestroy {
         }
     }
     checkVisibility(item){
-        if((this.userconnecte.role.name === "Etudiant") && (item.role === "admin")){
+        if((this.userconnecte?.role?.name === "Etudiant") && (item?.role === "admin")){
             return false;
         }
         console.log(item.role);
