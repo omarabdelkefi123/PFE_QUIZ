@@ -145,6 +145,7 @@ import { AuthGuardService } from './service/Auth/auth-guard.service';
 import { ForgetPasswordComponent } from './components/forget-password/forget-password.component';
 import { NewPasswordComponent } from './components/new-password/new-password.component';
 import { InterceptorService } from './service/Auth/interceptor.service';
+import { SignUpComponent } from './components/sign-up/sign-up.component';
 
 @NgModule({
     imports: [
@@ -280,6 +281,7 @@ import { InterceptorService } from './service/Auth/interceptor.service';
         AccessComponent,
         ForgetPasswordComponent,
         NewPasswordComponent,
+        SignUpComponent,
         
     ],
     providers: [

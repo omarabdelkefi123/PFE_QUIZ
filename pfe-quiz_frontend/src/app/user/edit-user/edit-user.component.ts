@@ -108,7 +108,7 @@ export class EditUserComponent implements OnInit {
   id: number;
   i: number;
   urlServer: string = 'http://localhost:8080/';
-  constructor(public datepipe: DatePipe, private route: ActivatedRoute, 
+  constructor(public datepipe: DatePipe, private route: ActivatedRoute,
     private router: Router, private administratorservice: UserService, private roleservice: RoleService, private countryService: CountryService) {
 
 
@@ -129,6 +129,12 @@ export class EditUserComponent implements OnInit {
 
       this.selectedCity = this.villeGroups.filter(ele => ele.value === this.user.city)[0];
       this.user.dateofbirth = new Date(this.user.dateofbirth);
+      this.user.documents.forEach(element => {
+        const file: File = new File([element.bytes], element.name, {
+          type: element.type
+        });
+        this.files.push(file);
+      })
     });
   }
   ngOnInit() {
@@ -139,7 +145,7 @@ export class EditUserComponent implements OnInit {
     this.user.city = this.selectedCity.value;
     const formData: FormData = new FormData();
     this.files.forEach(element => {
-      formData.append('documents', element);
+      formData.append('files', element);
     });
     formData.append('admin', JSON.stringify(this.user));
     this.administratorservice.updateuser(formData)

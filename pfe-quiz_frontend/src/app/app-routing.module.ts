@@ -9,11 +9,13 @@ import { NotfoundComponent } from './components/notfound/notfound.component';
 import { AccessComponent } from './components/access/access.component';
 import { NewPasswordComponent } from './components/new-password/new-password.component';
 import { ForgetPasswordComponent } from './components/forget-password/forget-password.component';
+import { SignUpComponent } from './components/sign-up/sign-up.component';
 @NgModule({
     imports: [
         RouterModule.forRoot([
             { path: '', redirectTo: 'login', pathMatch: 'full' },
             { path: 'landing', component: LandingComponent },
+            { path: 'signup', component: SignUpComponent },
             { path: 'login', component: LoginComponent },
             { path: 'login/:errorMessage', component: LoginComponent },
             { path: 'newPassword/:token', component: NewPasswordComponent },

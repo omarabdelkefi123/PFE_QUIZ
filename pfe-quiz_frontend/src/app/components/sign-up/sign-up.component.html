@@ -1,0 +1,130 @@
+<div class="surface-0 flex align-items-center justify-content-center min-h-screen min-w-screen overflow-hidden">
+    <div class="grid justify-content-center p-2 lg:p-0" style="min-width:80%">
+        <div class="col-12 mt-5 xl:mt-0 text-center">
+            <img src="assets/layout/quiz.jpg" alt="Sakai logo" class="mb-5" style="width:81px; height:60px;">
+        </div>
+        <div class="col-12 xl:col-6"
+            style="border-radius:56px; padding:0.3rem; background: linear-gradient(180deg, var(--primary-color) 10%, rgba(33, 150, 243, 0) 30%);">
+            <div class="h-full w-full m-0 pb-7 px-4"
+                style="padding-top: 10px; border-radius:53px; background: linear-gradient(180deg, var(--surface-50) 38.9%, var(--surface-0));">
+                <div class="text-center mb-5">
+                    <div class="text-900 text-3xl font-medium mb-3">Welcome To quiz app!</div>
+                    <span class="text-600 font-medium">Sign up to create new account</span>
+                </div>
+
+
+                <h5>Basic Information</h5>
+                <div class="grid p-fluid mt-3">
+                    <div class="field col-12 md:col-6">
+                        <span class="p-float-label">
+                            <input type="text" id="inputtext" pInputText [(ngModel)]="user.username"
+                                [formControl]="usernameFormControl">
+                            <label for="inputtext">Username</label>
+                        </span>
+                        <small
+                            *ngIf="usernameFormControl.errors && usernameFormControl.errors.required && usernameFormControl.touched"
+                            class="p-error">Username is <strong>required</strong></small>
+                        <small *ngIf="usernameFormControl.errors && usernameFormControl.errors.email"
+                            class="p-error">Please enter a
+                            valid email address</small>
+                    </div>
+                    <div class="field col-12 md:col-6">
+                        <span class="p-float-label">
+                            <input pInputText [(ngModel)]="user.password" [formControl]="passwordFormControl"
+                                id="password" type="text" />
+                            <label for="inputtext">Password</label>
+                        </span>
+                        <small
+                            *ngIf="passwordFormControl.errors && passwordFormControl.errors.required && passwordFormControl.touched"
+                            class="p-error">Password is <strong>required</strong></small>
+                    </div>
+                    <div class="field col-12 md:col-6">
+                        <span class="p-float-label">
+                            <input type="text" id="inputtext" pInputText [formControl]="fullnameControl"
+                                name="firstname" [(ngModel)]="user.fullname">
+                            <label for="inputtext">Full Name</label>
+                        </span>
+                        <small
+                            *ngIf="fullnameControl.errors && fullnameControl.errors.required && fullnameControl.touched"
+                            class="p-error">Full Name is <strong>required</strong></small>
+                    </div>
+                    <div class="field col-12 md:col-6">
+                        <span class="p-float-label">
+                            <input type="text" id="inputtext" pInputText maxlength="8" [formControl]="cinControl"
+                                name="cin" [(ngModel)]="user.cin">
+                            <label for="inputtext">CIN</label>
+                        </span>
+                        <small *ngIf="cinControl.errors && cinControl.errors.required && cinControl.touched"
+                            class="p-error">Cin is
+                            <strong> required</strong></small>
+                        <small *ngIf="cinControl.errors && cinControl.errors.pattern" class="p-error">
+                            Cin est de 8 chiffre </small>
+
+                    </div>
+                    <div class="field col-12 md:col-4">
+                        <span class="p-float-label">
+                            <p-dropdown inputId="dropdown" [autoDisplayFirst]="false" [options]="sexe"
+                                [(ngModel)]="selectedGender" optionLabel="value"></p-dropdown>
+                            <label for="dropdown">Gender</label>
+                        </span>
+                    </div>
+                    <div class="field col-12 md:col-4">
+                        <span class="p-float-label">
+                            <p-calendar inputId="calendar" [formControl]="dateControl" name="dateofbirth"
+                                [(ngModel)]="user.dateofbirth">></p-calendar>
+                            <label for="calendar">Date of birth</label>
+                        </span>
+                        <small *ngIf="dateControl.errors && dateControl.errors.required && dateControl.touched"
+                            class="p-error">Date
+                            of birth is <strong>required</strong></small>
+                        <small *ngIf="testDate(user.dateofbirth)" class="p-error">Age should
+                            be greater than 20</small>
+                    </div>
+                    <div class="field col-12 md:col-4">
+                        <span class="p-float-label">
+                            <input type="text" id="inputtext" pInputText [formControl]="TelControl" name="phone"
+                                [(ngModel)]="user.phone">
+                            <label for="inputtext">Phone</label>
+                        </span>
+                        <small *ngIf="TelControl.errors && TelControl.errors.required && TelControl.touched"
+                            class="p-error">Phone
+                            is <strong>required</strong></small>
+                    </div>
+                  
+                    <div class="field col-12 md:col-4">
+                        <span class="p-float-label">
+                            <p-dropdown inputId="dropdown" [autoDisplayFirst]="false" [options]="villeGroups"
+                                [(ngModel)]="selectedCity" optionLabel="value"></p-dropdown>
+                            <label for="dropdown">Ville</label>
+                        </span>
+                    </div>
+                </div>
+                <h5>Image</h5>
+                <p-fileUpload mode="basic" url="./upload.php" accept="image/*" maxFileSize="1000000"
+                    chooseLabel="Browse" (onSelect)="selectImage($event.files)"></p-fileUpload>
+
+                <h5>Documents</h5>
+
+                <p-fileUpload name="demo[]" url="./upload.php" multiple="multiple" [showUploadButton]="false"
+                    maxFileSize="1000000" (onSelect)="selectFile($event.files)">
+                    <ng-template pTemplate="content">
+                        <ul *ngIf="uploadedFiles.length">
+                            <li *ngFor="let file of uploadedFiles">{{file.name}} - {{file.size}} bytes</li>
+                        </ul>
+                    </ng-template>
+                </p-fileUpload>
+
+                <div style="margin: 35px 165px;">
+                    <button pButton pRipple type="button" (click)="addUser()" label="Sign up"
+                        class=" mr-2 mb-2" style="    min-width: 146px;"></button>
+                    <button pButton pRipple type="button" label="Login" style=" min-width: 146px;"
+                    class="p-button-secondary mr-2 mb-2 "
+                        routerLink="../login"></button>
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
